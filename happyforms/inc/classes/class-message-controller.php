@@ -206,7 +206,18 @@ class HappyForms_Message_Controller {
 
 		if ( false === $submission ) {
 			// Add a general error notice at the top
-			$session->add_error( $form_id, html_entity_decode( $form['error_message'] ) );
+			$session->add_error( $form_id, wp_kses (
+				html_entity_decode( $form['error_message'] ),
+				array(
+					'a'      => array(
+						'href'  => array(),
+						'title' => array(),
+					),
+					'p'     => array(),
+					'em'     => array(),
+					'strong' => array(),
+				))
+			); 
 
 			// Reset to start step
 			$session->reset_step();
@@ -230,7 +241,18 @@ class HappyForms_Message_Controller {
 			wp_send_json_error( $response );
 		} else {
 			// Add a general success notice at the top
-			$session->add_notice( $form_id, html_entity_decode( $form['confirmation_message'] ) );
+			$session->add_notice( $form_id, wp_kses (
+				html_entity_decode($form['confirmation_message'] ) ,
+				array(
+					'a'      => array(
+						'href'  => array(),
+						'title' => array(),
+					),
+					'p'     => array(),
+					'em'     => array(),
+					'strong' => array(),
+				))
+			);
 
 			// Reset to start step
 			$session->reset_step();

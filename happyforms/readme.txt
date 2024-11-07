@@ -1,15 +1,15 @@
-=== Form builder to get in touch with visitors, grow your email list and collect payments — Happyforms ===
+=== Form builder to get in touch with visitors and grow your email list — Happyforms ===
 
 Contributors: happyforms
-Tags: contact form, contact form plugin, forms, form builder, custom form
+Tags: contact form, Wordpress form plugin, forms, form builder, custom form
 Requires at least: 5.0
-Tested up to: 6.6.1
+Tested up to: 6.6.2
 Requires PHP: 7.0
-Stable tag: 1.26.2
+Stable tag: 1.26.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Contact form, newsletter form and payment form builder without the sucky stuff — lost emails, pesky spam, leaky privacy and outsourced support.
+Best Wordpress contact form, newsletter form and payment form builder without the sucky stuff — lost emails, pesky spam, leaky privacy and outsourced support.
 
 == Description ==
 
@@ -160,6 +160,13 @@ If you ever have questions, [just ask us](https://wordpress.org/support/plugin/h
 And so you know, we don't outsource support. You can expect plain-talkin' help from someone who has a hand in making Happyforms.
 
 == Changelog ==
+
+= November 7, 2024 =
+
+Version 1.26.3 changelog:
+
+* Fixed: XSS Vulnerability on Form Messages
+* Updated: Plugin description
 
 = September 7, 2024 =
 
@@ -458,6 +465,11 @@ Version 1.13.12 changelog:
 
 == Upgrade Notice ==
 
+= 1.26.3 =
+
+* Fixed XSS vulnerability
+* Updated plugin description
+
 = 1.26.2 =
 
 * Updated plugin description
@@ -614,387 +626,3 @@ Version 1.13.12 changelog:
 
 = 1.13.2 =
 * Minor improvements and bugfixes.
-
-= 1.13.1 =
-* HTML anchor on form block, bugfixes.
-
-= 1.13.0 =
-* Advanced controls for Single Choice, Multiple Choice and Dropdown fields, bugfixes.
-
-= 1.12.12 =
-* Miscellaneous improvements and bugfixes.
-
-= 1.12.11 =
-* Miscellaneous improvements and bugfixes.
-
-= 1.12.10 =
-* Improved honeypot and asset loading, miscellaneous bugfixes.
-
-= 1.12.9 =
-* Jetpack synchronization was triggering a fatal error.
-
-= 1.12.8 =
-* Safer builder controls internal API.
-
-= 1.12.7 =
-* Builder visual improvements, bugfixes.
-
-= 1.12.6 =
-* Minor bugfixes.
-
-= 1.12.5 =
-* Real-time CSS preview, new required fields label control, improvement and bugfixes.
-
-= 1.12.4 =
-* Bugfixes.
-
-= 1.12.3 =
-* Per-field label toggling, better Elementor popup support, improvements and bugfixes.
-
-= 1.12.2 =
-* Searchable dropdowns improvements, bugfixes.
-
-= 1.12.1 =
-* Minor improvements and bugfixes.
-
-= 1.12.0 =
-* jQuery deprecation updates.
-
-= 1.11.1 =
-* Form title "Display" control fixes.
-
-= 1.11.0 =
-* Better support for 3rd party popup plugins, miscellaneous improvements and bugfixes.
-
-= 1.10.0 =
-* New Messages tab, Prefill control, miscellaneous bugfixes.
-
-= 1.9.30 =
-* Minor improvements and bugfixes.
-
-= 1.9.29 =
-* FAQs and contributors updates.
-
-= 1.9.28 =
-* Minor bugfixes and improvements.
-
-= 1.9.27 =
-* Minor bugfixes and improvements.
-
-= 1.9.26 =
-* Realtime Additional CSS preview, new filters and bugfixes.
-
-= 1.9.25 =
-* New "Prefix" control in Email field, performance improvements and bugfixes.
-
-= 1.9.24 =
-* Minor bugfixes.
-
-= 1.9.23 =
-* Style controls improvements, miscellaneous bugfixes.
-
-= 1.9.22 =
-* Minor bugfixes.
-
-= 1.9.21 =
-* Minor improvements and bugfixes.
-
-= 1.9.20 =
-* Minor bugfixes.
-
-= 1.9.19 =
-* Miscellaneous bugfixes.
-
-= 1.9.18 =
-* New "Email display name" control for email confirmations, miscellaneous bugfixes.
-
-= 1.9.17 =
-* Improvements to tooltips.
-
-= 1.9.16 =
-* Fixed issue with Style tab not loading.
-
-= 1.9.15 =
-* Improved styles for descriptions shown in tooltip. Styling improvements.
-
-= 1.9.14 =
-* Bugfix for Number field which was not accepting more than four digits when Use number separators was checked.
-
-= 1.9.13 =
-* Rows control for Long Answer field, new field icons, and improvements.
-
-= 1.9.12 =
-* New part icons, various improvements to form styles.
-
-= 1.9.11 =
-* Addressed form builder's incompatibility with some plugins and themes. Tweaks to UI and front-end styles.
-
-= 1.9.10 =
-* Improvements to form builder, bugfix for Dropdown part value.
-
-= 1.9.9 =
-* Improved compatibility with themes and bugfixes.
-
-= 1.9.8 =
-* Form builder improvements. Bug fixes.
-
-= 1.9.7 =
-* Compatibility with WordPress 5.4, improvements and bug fixes.
-
-= 1.9.6 =
-* Miscellaneous improvements and bugfixes.
-
-= 1.9.5 =
-* Support for prefix and suffix in selected parts. Added placeholder control to confirmation fields. Improvements to front-end styles and form builder UI.
-
-= 1.9.4 =
-* Improvements to appearance and accessibility of validation messages.
-
-= 1.9.3 =
-* Fix issue with HTML attribute visible between form parts.
-
-= 1.9.2 =
-* New Additional CSS section in Style step.
-
-= 1.9.1 =
-* Quarter width for parts and part choices. Various improvements to UI and part styles.
-
-= 1.9.0 =
-* New Email step, various improvements to form builder UI.
-
-= 1.8.22 =
-* Improved text domain for better management of translations. Improvements to UI and frontend styles.
-
-= 1.8.21 =
-* New Help tab linking to our help guide and support email. All Forms screen improvements.
-
-= 1.8.20 =
-* Various style improvements, compatibility with WordPress 5.3.
-
-= 1.8.19 =
-* New control for hiding form after submission, various improvements to styles and wording in form builder UI.
-
-= 1.8.18 =
-* Fixed bug with submitted values not displaying in email notifications.
-
-= 1.8.17 =
-* New control for setting choices width allowing for multi-column layouts in Single Choice and Multiple Choice part.
-
-= 1.8.16 =
-* Improved and fixed styles in form builder.
-
-= 1.8.15 =
-* Fix admin notices.
-
-= 1.8.14 =
-* Customizable form error message and required field label.
-
-= 1.8.13 =
-* Fixed error caused by admin notices during Wp Cron task execution.
-
-= 1.8.12 =
-* Fixed error caused by admin notices class not available in some contexts.
-
-= 1.8.11 =
-* Moved various features to the upgraded plan.
-
-= 1.8.10 =
-* Fixed fatal error in Customizer screen.
-
-= 1.8.9 =
-* Google reCAPTCHA theme setting, improvements, and bugfixes.
-
-= 1.8.8 =
-* Bugfixes.
-
-= 1.8.7 =
-* Improvement and bugfixes.
-
-= 1.8.6 =
-* Bugfixes.
-
-= 1.8.5 =
-* Bugfixes.
-
-= 1.8.4 =
-* Bugfixes.
-
-= 1.8.3 =
-* Bugfixes.
-
-= 1.8.2 =
-* Bugfixes.
-
-= 1.8.1 =
-* Bugfixes.
-
-= 1.8.0 =
-* Removed responses.
-
-= 1.7.10 =
-* Allow sending values back to users, improved textarea counter, minor bugfixes.
-
-= 1.7.9 =
-* Bug fixes.
-
-= 1.7.8 =
-* Bcc email support, Narrative part placeholders, open redirect link in a new tab, bugfixes.
-
-= 1.7.7 =
-* Bug fixes.
-
-= 1.7.6 =
-* Bug fixes.
-
-= 1.7.5 =
-* Improved styles, character counter for Long Text and Text Editor parts, minor improvements and bugfixes.
-
-= 1.7.4 =
-* Bug fixes.
-
-= 1.7.3 =
-* Better part duplication, new "Select all" feature, trash responses, style improvements and bugfixes.
-
-= 1.7.2 =
-* Minor fixes and improvements.
-
-= 1.7.1 =
-* Minor fixes and improvements.
-
-= 1.7.0 =
-* Better left styled forms, improvements on emails, recaptcha and performance, bugfixes.
-
-= 1.6.22 =
-* Improvements to admin notices behavior and styles.
-
-= 1.6.21 =
-* Fix Email part preventing form submits when "Preview values before submission" was checked. Improve form preview notices behavior on new forms.
-
-= 1.6.20 =
-* Customize screen and emails bugfixes and improvements.
-
-= 1.6.19 =
-* Fix Phone country dropdown not opening after other dropdown parts were focused.
-
-= 1.6.18 =
-* Bugfixes and CSS improvements.
-
-= 1.6.17 =
-* Address part bugfixes.
-
-= 1.6.16 =
-* Miscellaneous improvements and bugfixes.
-
-= 1.6.15 =
-* Minor improvement.
-
-= 1.6.14 =
-* Miscellaneous improvements to meta fields, CSV export and HTML output.
-
-= 1.6.13 =
-* Email part notice fix, various style fixes.
-
-= 1.6.12 ==
-* Bugfixes.
-
-= 1.6.11 ==
-* New style controls, email autocomplete feature, and bugfixes.
-
-= 1.6.10 =
-* Gutenberg support, new style control and improvements.
-
-= 1.6.9 =
-* New Text Editor part, better dropdowns and global options, bugfixes.
-
-= 1.6.8 =
-* Bulk options import, bugfixes.
-
-= 1.6.7 =
-* Tons of improvements to individual parts and form customize screen, bugfixes.
-
-= 1.6.6 =
-* Bugfixes.
-
-= 1.6.5 =
-* Bugfixes.
-
-= 1.6.4 =
-* Response unique IDs, Rating labels, part display improvements, new email filters, bugfixes.
-
-= 1.6.3 =
-* Bugfixes.
-
-= 1.6.2 =
-* Bugfixes.
-
-= 1.6.1 =
-* Use single line text part as email subject, reply and mark responses as read from email alert messages, bugfixes.
-
-= 1.6.0 =
-* New story part and rating options, style and email improvements, bugfixes.
-
-= 1.5.11 =
-* New single line form layout, tons of improvements and bugfixes.
-
-= 1.5.10 =
-* Email alerts bugfixes.
-
-= 1.5.9 =
-* Bugfixes.
-
-= 1.5.8 =
-* Bugfixes.
-
-= 1.5.7 =
-* Bugfixes.
-
-= 1.5.6 =
-* Form previews, Customize improvements and bugfixes.
-
-= 1.5.5 =
-* Redesigned dropdowns, new look of Phone part, enhanced shortcode, and bug fixes.
-
-= 1.5.4 =
-* Support for forms inside admin screens.
-
-= 1.5.3 =
-* New default styles and bug fixes.
-
-= 1.5.2 =
-* Fixed masked Phone part region country defaulting to first option on every load of form builder.
-
-= 1.5.1 =
-* Added Table part. Legal part now allows for links and basic formatting. Various improvements and bug fixes.
-
-= 1.5.0 =
-* Refresh-free forms, tons of new actions, filters and bugfixes.
-
-= 1.4.6 =
-* Improvements and bug fixes.
-
-= 1.4.5 =
-* Improvements and bug fixes.
-
-= 1.4.4 =
-* Various bug fixes and improvements.
-
-= 1.4.3 =
-* Address, email and visual improvements and bug fixes.
-
-= 1.4.2 =
-* Minor bug fixes.
-
-= 1.4.1 =
-* Additional style controls, support for RTL languages, bug fixes.
-
-= 1.4.0 =
-* Fix byline appearance.
-
-= 1.3.0 =
-* Tons of new features, improvements and bugfixes.
-
-= 1.2.0 =
-* Fixed: an error during the example form creation was preventing plugin activation.
-
-= 1.1.0 =
-* Tons of new features and improvements.
