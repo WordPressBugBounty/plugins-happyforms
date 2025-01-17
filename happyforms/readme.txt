@@ -3,9 +3,9 @@
 Contributors: happyforms
 Tags: contact form, Wordpress form plugin, forms, form builder, custom form
 Requires at least: 5.0
-Tested up to: 6.6.2
+Tested up to: 6.7.1
 Requires PHP: 7.0
-Stable tag: 1.26.3
+Stable tag: 1.26.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -160,6 +160,12 @@ If you ever have questions, [just ask us](https://wordpress.org/support/plugin/h
 And so you know, we don't outsource support. You can expect plain-talkin' help from someone who has a hand in making Happyforms.
 
 == Changelog ==
+
+= January 13, 2025 =
+
+Version 1.26.4 changelog:
+
+* Update: Compatibility with WordPress 6.7.1
 
 = November 7, 2024 =
 
@@ -464,6 +470,10 @@ Version 1.13.12 changelog:
 * Removed: "Add other choice" control has been deprecated in favor of conditional logic.
 
 == Upgrade Notice ==
+
+= 1.26.4 =
+
+* Update: Compatibility with WordPress 6.7.1
 
 = 1.26.3 =
 
