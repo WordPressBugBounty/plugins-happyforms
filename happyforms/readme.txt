@@ -1,19 +1,19 @@
-=== Form builder to get in touch with visitors and grow your email list — Happyforms ===
+=== Happyforms - Form Builder for WordPress: Drag & Drop Contact Forms, Surveys, Payments & Multipurpose Forms ===
 
 Contributors: happyforms
-Tags: contact form, Wordpress form plugin, forms, form builder, custom form
+Tags: contact form, WordPress form plugin, forms, form builder, custom form
 Requires at least: 5.0
 Tested up to: 6.7.1
 Requires PHP: 7.0
-Stable tag: 1.26.4
+Stable tag: 1.26.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Best Wordpress contact form, newsletter form and payment form builder without the sucky stuff — lost emails, pesky spam, leaky privacy and outsourced support.
+Best WordPress contact form, newsletter form and payment form builder without the sucky stuff — lost emails, pesky spam, leaky privacy and outsourced support.
 
 == Description ==
 
-[Happyforms](https://happyforms.io/) is the simplest way for you to manage and respond to conversations with your website visitors. With over 10 years of experience here at The Theme Foundry, we’ve heard from nearly 1,000,000 businesses what they need from a contact form builder plugin! We've heard about the wasted time trying to set up tricky forms; the frustration of emails not being delivered; and the let down of not hearing from leads. That’s why we created Happyforms: Your free and friendly drag and drop form builder for creating contact forms and other custom forms in Wordpress. Happyforms is optimized to increase conversations with your website visitors. Have peace of mind knowing messages to-and-from are getting delivered without the hassle of spam. You'll be set up and going in 5 minutes or less.
+[Happyforms](https://happyforms.io/) is the simplest way for you to manage and respond to conversations with your website visitors. With over 10 years of experience here at The Theme Foundry, we’ve heard from nearly 1,000,000 businesses what they need from a contact form builder plugin! We've heard about the wasted time trying to set up tricky forms; the frustration of emails not being delivered; and the let down of not hearing from leads. That’s why we created Happyforms: Your free and friendly drag and drop form builder for creating contact forms and other custom forms in WordPress. Happyforms is optimized to increase conversations with your website visitors. Have peace of mind knowing messages to-and-from are getting delivered without the hassle of spam. You'll be set up and going in 5 minutes or less.
 
 [Discover all the benefits of upgrading.](https://happyforms.io/upgrade) 🚀
 
@@ -126,6 +126,134 @@ Just about anything. A contact form, intake form, registration form, survey form
 
 Note: you'll need to upgrade to our paid contact form builder plugin to get some of the best goodies mentioned here.
 
+== General Pourpose Forms ==
+
+* Contact Form
+* Feedback Form
+* Registration Form
+* Survey Form
+* Poll Form
+* Application Form
+* Inquiry Form
+* Request Form
+* Signup Form
+* Order Form
+* Quote Request Form
+
+== Lead Generation & Marketing ==
+
+* Lead Capture Form
+* Newsletter Signup Form
+* Downloadable Resource Form
+* Webinar Registration Form
+* Demo Request Form
+* Price Estimate Form
+* Consultation Booking Form
+* Event Registration Form
+* Contest Entry Form
+* Giveaway Form
+* Popup Form
+
+== E-commerce & Payments ==
+
+* Checkout Form
+* Payment Form
+* Donation Form
+* Product Order Form
+* Invoice Form
+* Subscription Form
+* Coupon Code Form
+* Refund Request Form
+* Pre-order Form
+* Waitlist Form
+
+== Business & HR ==
+
+* Job Application Form
+* Employee Onboarding Form
+* Timesheet Submission Form
+* Expense Reimbursement Form
+* Vendor Registration Form
+* Client Intake Form
+* Contractor Agreement Form
+* Feedback Survey Form
+* Performance Review Form
+* Training Registration Form
+
+== Education & Courses ==
+
+* Course Registration Form
+* Scholarship Application Form
+* Volunteer Registration Form
+* Membership Application Form
+* Grant Application Form
+* Workshop Enrollment Form
+* Alumni Survey Form
+* Fundraising Donation Form
+* Tutoring Request Form
+* Research Participation Form
+
+== Medical & Legal ==
+
+* Patient Intake Form
+* Medical History Form
+* Consent Form
+* HIPAA Compliance Form
+* Legal Consultation Form
+* Incident Report Form
+* Insurance Claim Form
+* Privacy Policy Agreement Form
+* Release of Liability Form
+
+== Real Estate & Hospitality ==
+
+* Property Inquiry Form
+* Rental Application Form
+* Guest Booking Form
+* Vacation Rental Form
+* Open House Registration Form
+* Maintenance Request Form
+* Room Reservation Form
+* Event Venue Inquiry Form
+* Feedback Form for Guests
+
+== Technical & Creative ==
+
+* Bug Report Form
+* Feature Request Form
+* Beta Tester Application Form
+* Design Brief Form
+* Content Submission Form
+* Portfolio Review Form
+* Creative Contest Entry Form
+* API Access Request Form
+
+== Niche & Specialty Forms ==
+
+* Wedding RSVP Form
+* Event Registration Form
+* Pet Adoption Form
+* Fitness Class Signup Form
+* Recipe Submission Form
+* Art Commission Form
+* Car Rental Form
+* Equipment Rental Form
+* Voting Ballot Form
+
+== Form Features (Modifiers) ==
+
+* Drag & Drop Form
+* Multi-Step Form
+* Conditional Logic Form
+* Mobile Responsive Form
+* GDPR Compliant Form
+* Spam-Protected Form
+* File Upload Form
+* Payment-Enabled Form
+* Popup Form
+* Embeddable Form
+* Automated Email Form
+
 = Does it work with my favorite theme and plugins? =
 
 Abso-freakin-lutely! We’re always checking to make sure Happyforms plays nicely with popular themes like Divi, Astra, Avada, Genesis, GeneratePress, Enfold, Flatsome and OceanWP, and popular plugins like Yoast SEO, Elementor, WooCommerce, Jetpack, Wordfence, UpdraftPlus, MonsterInsights, WP Super Cache, Smush, W3 Total Cache, Loco Translate, SiteOrigin and Popup Maker.
@@ -161,6 +289,12 @@ And so you know, we don't outsource support. You can expect plain-talkin' help f
 
 == Changelog ==
 
+= January 31, 2025 =
+
+Version 1.26.5 changelog:
+
+* Update: Updated readme and plugin description
+
 = January 13, 2025 =
 
 Version 1.26.4 changelog:
@@ -186,7 +320,7 @@ Version 1.26.1 changelog:
 
 * Fixed: Security issue on XSS scripting
 * Fixed: Accessibility issues on Honeypot and Headings
-* Tested up until verion 6.6.1 of Wordpress
+* Tested up until verion 6.6.1 of WordPress
 
 = April 17, 2024 =
 
@@ -194,7 +328,7 @@ Version 1.26.0 changelog:
 
 * Added: Hidden field as a new field.
 * Added: Dynamic Email Subject.
-* Tested up until verion 6.5.2 of Wordpress
+* Tested up until verion 6.5.2 of WordPress
 
 = February 22, 2024 =
 
@@ -470,6 +604,10 @@ Version 1.13.12 changelog:
 * Removed: "Add other choice" control has been deprecated in favor of conditional logic.
 
 == Upgrade Notice ==
+
+= 1.26.5 =
+
+* Update: Updated readme and plugin description
 
 = 1.26.4 =
 
