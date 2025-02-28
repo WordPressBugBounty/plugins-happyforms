@@ -1,18 +1,17 @@
 <?php
 
 class HappyForms_Part_Placeholder extends HappyForms_Form_Part {
-
 	public $type = 'placeholder';
 
 	public function __construct() {
-		$this->label = __( 'Paragraph', 'happyforms' );
-		$this->description = __( 'For adding helper text, notes and formatted messages.', 'happyforms' );
+		$this->label = __('Paragraph', 'happyforms');
+		$this->description = __('For adding helper text, notes and formatted messages.', 'happyforms');
 
-		add_filter( 'happyforms_message_part_visible', array( $this, 'message_part_visible' ), 10, 2 );
-		add_filter( 'happyforms_email_part_visible', array( $this, 'email_part_visible' ), 10, 4 );
-		add_filter( 'happyforms_email_part_label', array( $this, 'email_part_label' ), 10, 4 );
-		add_filter( 'happyforms_email_part_value', array( $this, 'email_part_value' ), 10, 5 );
-		add_filter( 'happyforms_csv_part_visible', array( $this, 'csv_part_visible' ), 10, 2 );
+		add_filter('happyforms_message_part_visible', array($this, 'message_part_visible'), 10, 2);
+		add_filter('happyforms_email_part_visible', array($this, 'email_part_visible'), 10, 4);
+		add_filter('happyforms_email_part_label', array($this, 'email_part_label'), 10, 4);
+		add_filter('happyforms_email_part_value', array($this, 'email_part_value'), 10, 5);
+		add_filter('happyforms_csv_part_visible', array($this, 'csv_part_visible'), 10, 2);
 	}
 
 	/**
@@ -29,7 +28,7 @@ class HappyForms_Part_Placeholder extends HappyForms_Form_Part {
 				'sanitize' => 'sanitize_text_field',
 			),
 			'label' => array(
-				'default' => __( '', 'happyforms' ),
+				'default' => __('', 'happyforms'),
 				'sanitize' => 'sanitize_text_field',
 			),
 			'label_placement' => array(
@@ -50,7 +49,7 @@ class HappyForms_Part_Placeholder extends HappyForms_Form_Part {
 			),
 			'css_class' => array(
 				'default' => '',
-				'sanitize' => 'sanitize_text_field'
+				'sanitize' => 'happyforms_sanitize_classnames'
 			),
 			'placeholder_text' => array(
 				'default' => '',
@@ -62,7 +61,7 @@ class HappyForms_Part_Placeholder extends HappyForms_Form_Part {
 			)
 		);
 
-		return happyforms_get_part_customize_fields( $fields, $this->type );
+		return happyforms_get_part_customize_fields($fields, $this->type);
 	}
 
 	/**
@@ -74,9 +73,9 @@ class HappyForms_Part_Placeholder extends HappyForms_Form_Part {
 	 */
 	public function customize_templates() {
 		$template_path = happyforms_get_core_folder() . '/templates/parts/customize-placeholder.php';
-		$template_path = happyforms_get_part_customize_template_path( $template_path, $this->type );
+		$template_path = happyforms_get_part_customize_template_path($template_path, $this->type);
 
-		require_once( $template_path );
+		require_once($template_path);
 	}
 
 	/**
@@ -89,11 +88,11 @@ class HappyForms_Part_Placeholder extends HappyForms_Form_Part {
 	 *
 	 * @return string	Markup for the form part.
 	 */
-	public function frontend_template( $part_data = array(), $form_data = array() ) {
-		$part = wp_parse_args( $part_data, $this->get_customize_defaults() );
+	public function frontend_template($part_data = array(), $form_data = array()) {
+		$part = wp_parse_args($part_data, $this->get_customize_defaults());
 		$form = $form_data;
 
-		include( happyforms_get_core_folder() . '/templates/parts/frontend-placeholder.php' );
+		include(happyforms_get_core_folder() . '/templates/parts/frontend-placeholder.php');
 	}
 
 	/**
@@ -116,12 +115,12 @@ class HappyForms_Part_Placeholder extends HappyForms_Form_Part {
 	 *
 	 * @return string
 	 */
-	public function sanitize_value( $part_data = array(), $form_data = array(), $request = array() ) {
-		$sanitized_value = $this->get_default_value( $part_data );
-		$part_name = happyforms_get_part_name( $part_data, $form_data );
+	public function sanitize_value($part_data = array(), $form_data = array(), $request = array()) {
+		$sanitized_value = $this->get_default_value($part_data);
+		$part_name = happyforms_get_part_name($part_data, $form_data);
 
-		if ( isset( $request[$part_name] ) ) {
-			$sanitized_value = sanitize_text_field( $request[$part_name] );
+		if (isset($request[$part_name])) {
+			$sanitized_value = sanitize_text_field($request[$part_name]);
 		}
 
 		return $sanitized_value;
@@ -137,23 +136,23 @@ class HappyForms_Part_Placeholder extends HappyForms_Form_Part {
 	 *
 	 * @return string
 	 */
-	public function validate_value( $value, $part = array(), $form = array() ) {
-		$validated_value = esc_attr( $value );
+	public function validate_value($value, $part = array(), $form = array()) {
+		$validated_value = esc_attr($value);
 
 		return $validated_value;
 	}
 
-	public function message_part_visible( $visible, $part ) {
-		if ( $this->type === $part['type'] ) {
+	public function message_part_visible($visible, $part) {
+		if ($this->type === $part['type']) {
 			$visible = false;
 		}
 
 		return $visible;
 	}
 
-	public function email_part_label( $label, $message, $part, $form ) {
-		if ( $this->type === $part['type'] ) {
-			if ( '' === $part['label'] ) {
+	public function email_part_label($label, $message, $part, $form) {
+		if ($this->type === $part['type']) {
+			if ('' === $part['label']) {
 				$label = '';
 			}
 		}
@@ -161,11 +160,11 @@ class HappyForms_Part_Placeholder extends HappyForms_Form_Part {
 		return $label;
 	}
 
-	public function email_part_visible( $visible, $part, $form, $response ) {
-		if ( $this->type === $part['type'] ) {
-			$value = happyforms_get_email_part_value( $response, $part, $form );
+	public function email_part_visible($visible, $part, $form, $response) {
+		if ($this->type === $part['type']) {
+			$value = happyforms_get_email_part_value($response, $part, $form);
 
-			if ( '' === $value ) {
+			if ('' === $value) {
 				$visible = false;
 			}
 		}
@@ -173,18 +172,18 @@ class HappyForms_Part_Placeholder extends HappyForms_Form_Part {
 		return $visible;
 	}
 
-	public function email_part_value( $value, $message, $part, $form, $context ) {
-		if ( $this->type !== $part['type'] ) {
+	public function email_part_value($value, $message, $part, $form, $context) {
+		if ($this->type !== $part['type']) {
 			return $value;
 		}
 
-		$value = wp_specialchars_decode( $part['placeholder_text'] );
+		$value = wp_specialchars_decode($part['placeholder_text']);
 
 		return $value;
 	}
 
-	public function csv_part_visible( $visible, $part ) {
-		if ( $this->type === $part['type'] ) {
+	public function csv_part_visible($visible, $part) {
+		if ($this->type === $part['type']) {
 			$visible = false;
 		}
 
@@ -200,11 +199,13 @@ class HappyForms_Part_Placeholder extends HappyForms_Form_Part {
 	 *
 	 * @return void
 	 */
-	public function customize_enqueue_scripts( $deps = array() ) {
+	public function customize_enqueue_scripts($deps = array()) {
 		wp_enqueue_script(
 			'part-placeholder',
 			happyforms_get_plugin_url() . 'core/assets/js/parts/part-placeholder.js',
-			$deps, happyforms_get_version(), true
+			$deps,
+			happyforms_get_version(),
+			true
 		);
 	}
 }

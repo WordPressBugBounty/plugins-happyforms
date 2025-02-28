@@ -1,14 +1,13 @@
 <?php
 
 class HappyForms_Part_Checkbox extends HappyForms_Form_Part {
-
 	public $type = 'checkbox';
 
 	public static $parent;
 
 	public function __construct() {
-		$this->label = __( 'Checkbox', 'happyforms' );
-		$this->description = __( 'For checkboxes allowing multiple selections.', 'happyforms' );
+		$this->label = __('Checkbox', 'happyforms');
+		$this->description = __('For checkboxes allowing multiple selections.', 'happyforms');
 
 		$this->hook();
 	}
@@ -16,12 +15,12 @@ class HappyForms_Part_Checkbox extends HappyForms_Form_Part {
 	public function hook() {
 		self::$parent = $this;
 
-		add_filter( 'happyforms_part_input_after', array( $this, 'append_input' ), 10, 2 );
-		add_filter( 'happyforms_part_value', array( $this, 'get_part_value' ), 10, 3 );
-		add_filter( 'happyforms_part_class', array( $this, 'html_part_class' ), 10, 3 );
-		add_filter( 'happyforms_stringify_part_value', array( $this, 'stringify_value' ), 10, 3 );
-		add_filter( 'happyforms_frontend_dependencies', array( $this, 'script_dependencies' ), 10, 2 );
-		add_filter( 'happyforms_validate_part', array( $this, 'validate_part' ) );
+		add_filter('happyforms_part_input_after', array($this, 'append_input'), 10, 2);
+		add_filter('happyforms_part_value', array($this, 'get_part_value'), 10, 3);
+		add_filter('happyforms_part_class', array($this, 'html_part_class'), 10, 3);
+		add_filter('happyforms_stringify_part_value', array($this, 'stringify_value'), 10, 3);
+		add_filter('happyforms_frontend_dependencies', array($this, 'script_dependencies'), 10, 2);
+		add_filter('happyforms_validate_part', array($this, 'validate_part'));
 	}
 
 	/**
@@ -38,7 +37,7 @@ class HappyForms_Part_Checkbox extends HappyForms_Form_Part {
 				'sanitize' => 'sanitize_text_field',
 			),
 			'label' => array(
-				'default' => __( '', 'happyforms' ),
+				'default' => __('', 'happyforms'),
 				'sanitize' => 'sanitize_text_field',
 			),
 			'label_placement' => array(
@@ -59,7 +58,7 @@ class HappyForms_Part_Checkbox extends HappyForms_Form_Part {
 			),
 			'css_class' => array(
 				'default' => '',
-				'sanitize' => 'sanitize_text_field'
+				'sanitize' => 'happyforms_sanitize_classnames'
 			),
 			'display_type' => array(
 				'default' => 'block',
@@ -78,7 +77,7 @@ class HappyForms_Part_Checkbox extends HappyForms_Form_Part {
 				'sanitize' => 'happyforms_sanitize_checkbox',
 			),
 			'other_option_label' => array(
-				'default' => __( 'Other', 'happyforms' ),
+				'default' => __('Other', 'happyforms'),
 				'sanitize' => 'sanitize_text_field',
 			),
 			'other_option_placeholder' => array(
@@ -99,16 +98,16 @@ class HappyForms_Part_Checkbox extends HappyForms_Form_Part {
 			)
 		);
 
-		return happyforms_get_part_customize_fields( $fields, $this->type );
+		return happyforms_get_part_customize_fields($fields, $this->type);
 	}
 
-	public function append_input( $part, $form ) {
-		if ( $this->type !== $part['type'] ) {
+	public function append_input($part, $form) {
+		if ($this->type !== $part['type']) {
 			return;
 		}
 
-		if ( 1 == $part['other_option'] ) {
-			require( happyforms_get_core_folder() . '/templates/parts/frontend-checkbox-other-option.php' );
+		if (1 == $part['other_option']) {
+			require(happyforms_get_core_folder() . '/templates/parts/frontend-checkbox-other-option.php');
 		}
 	}
 
@@ -130,9 +129,9 @@ class HappyForms_Part_Checkbox extends HappyForms_Form_Part {
 	 */
 	public function customize_templates() {
 		$template_path = happyforms_get_core_folder() . '/templates/parts/customize-checkbox.php';
-		$template_path = happyforms_get_part_customize_template_path( $template_path, $this->type );
+		$template_path = happyforms_get_part_customize_template_path($template_path, $this->type);
 
-		require_once( $template_path );
+		require_once($template_path);
 	}
 
 	/**
@@ -145,18 +144,18 @@ class HappyForms_Part_Checkbox extends HappyForms_Form_Part {
 	 *
 	 * @return string Markup for the form part.
 	 */
-	public function frontend_template( $part_data = array(), $form_data = array() ) {
-		$part = wp_parse_args( $part_data, $this->get_customize_defaults() );
+	public function frontend_template($part_data = array(), $form_data = array()) {
+		$part = wp_parse_args($part_data, $this->get_customize_defaults());
 		$form = $form_data;
 
-		foreach( $part['options'] as $o => $option ) {
-			$part['options'][$o] = wp_parse_args( $option, $this->get_option_defaults() );
+		foreach ($part['options'] as $o => $option) {
+			$part['options'][$o] = wp_parse_args($option, $this->get_option_defaults());
 		}
 
 		$template_path = happyforms_get_core_folder() . '/templates/parts/frontend-checkbox.php';
-		$template_path = happyforms_get_part_frontend_template_path( $template_path, $this->type );
+		$template_path = happyforms_get_part_frontend_template_path($template_path, $this->type);
 
-		include( $template_path );
+		include($template_path);
 	}
 
 	/**
@@ -168,15 +167,17 @@ class HappyForms_Part_Checkbox extends HappyForms_Form_Part {
 	 *
 	 * @return void
 	 */
-	public function customize_enqueue_scripts( $deps = array() ) {
+	public function customize_enqueue_scripts($deps = array()) {
 		wp_enqueue_script(
 			'part-checkbox',
 			happyforms_get_plugin_url() . 'core/assets/js/parts/part-checkbox.js',
-			$deps, happyforms_get_version(), true
+			$deps,
+			happyforms_get_version(),
+			true
 		);
 	}
 
-	public function get_default_value( $part_data = array() ) {
+	public function get_default_value($part_data = array()) {
 		return array();
 	}
 
@@ -189,31 +190,31 @@ class HappyForms_Part_Checkbox extends HappyForms_Form_Part {
 	 *
 	 * @return array
 	 */
-	public function sanitize_value( $part_data = array(), $form_data = array(), $request = array() ) {
-		$sanitized_value = $this->get_default_value( $part_data );
-		$part_name = happyforms_get_part_name( $part_data, $form_data );
+	public function sanitize_value($part_data = array(), $form_data = array(), $request = array()) {
+		$sanitized_value = $this->get_default_value($part_data);
+		$part_name = happyforms_get_part_name($part_data, $form_data);
 
-		if ( isset( $request[$part_name] ) ) {
+		if (isset($request[$part_name])) {
 			$requested_data = $request[$part_name];
 
-			$filtered_request = array_map( 'json_decode', array_map( 'stripslashes', $requested_data ) );
-			$contains_array = array_map( 'is_array', $filtered_request );
+			$filtered_request = array_map('json_decode', array_map('stripslashes', $requested_data));
+			$contains_array = array_map('is_array', $filtered_request);
 
-			if ( ! in_array( true, $contains_array ) ) {
-				if ( isset( $request[$part_name] ) ) {
+			if (! in_array(true, $contains_array)) {
+				if (isset($request[$part_name])) {
 					$requested_data = $request[$part_name];
 
-					if ( is_array( $requested_data ) ) {
-						$sanitized_value = array_map( 'intval', $requested_data );
+					if (is_array($requested_data)) {
+						$sanitized_value = array_map('intval', $requested_data);
 					}
 				}
 			} else {
-				foreach ( $filtered_request as $index => $request ) {
-					if ( is_array( $request ) ) {
-						$filtered_request[$index][0] = intval( $filtered_request[$index][0] );
-						$filtered_request[$index][1] = sanitize_text_field( $filtered_request[$index][1] );
+				foreach ($filtered_request as $index => $request) {
+					if (is_array($request)) {
+						$filtered_request[$index][0] = intval($filtered_request[$index][0]);
+						$filtered_request[$index][1] = sanitize_text_field($filtered_request[$index][1]);
 					} else {
-						$filtered_request[$index] = intval( $filtered_request[$index] );
+						$filtered_request[$index] = intval($filtered_request[$index]);
 					}
 				}
 
@@ -234,85 +235,85 @@ class HappyForms_Part_Checkbox extends HappyForms_Form_Part {
 	 *
 	 * @return string|object
 	 */
-	public function validate_value( $value, $part = array(), $form = array() ) {
+	public function validate_value($value, $part = array(), $form = array()) {
 		$validated_value = $value;
 
-		if ( 1 === $part['required'] && empty( $validated_value ) ) {
-			$validated_value = new WP_Error( 'error', happyforms_get_validation_message( 'no_selection' ) );
+		if (1 === $part['required'] && empty($validated_value)) {
+			$validated_value = new WP_Error('error', happyforms_get_validation_message('no_selection'));
 			return $validated_value;
 		}
 
-		if ( ! empty( $validated_value ) && 1 === $part['limit_choices'] ) {
-			if ( count( $validated_value ) < $part['limit_choices_min'] ) {
-				return new WP_Error( 'error', happyforms_get_validation_message( 'select_more_choices' ) );
+		if (! empty($validated_value) && 1 === $part['limit_choices']) {
+			if (count($validated_value) < $part['limit_choices_min']) {
+				return new WP_Error('error', happyforms_get_validation_message('select_more_choices'));
 			}
 
-			if ( count( $validated_value ) > $part['limit_choices_max'] ) {
-				return new WP_Error( 'error', happyforms_get_validation_message( 'select_less_choices' ) );
+			if (count($validated_value) > $part['limit_choices_max']) {
+				return new WP_Error('error', happyforms_get_validation_message('select_less_choices'));
 			}
 		}
 
-		if ( ! is_array( $validated_value ) && 1 !== $part['required'] ) {
+		if (! is_array($validated_value) && 1 !== $part['required']) {
 			return $validated_value;
 		}
 
-		$contains_array = array_map( 'is_array', $validated_value );
+		$contains_array = array_map('is_array', $validated_value);
 
-		if ( ! in_array( true, $contains_array ) ) {
-			if ( 1 === $part['required'] && empty( $validated_value ) ) {
-				$validated_value = new WP_Error( 'error', happyforms_get_validation_message( 'no_selection' ) );
+		if (! in_array(true, $contains_array)) {
+			if (1 === $part['required'] && empty($validated_value)) {
+				$validated_value = new WP_Error('error', happyforms_get_validation_message('no_selection'));
 				return $validated_value;
 			}
 
-			$options = array_keys( $part['options'] );
-			$intersection = array_intersect( $options, $validated_value );
+			$options = array_keys($part['options']);
+			$intersection = array_intersect($options, $validated_value);
 
-			if ( count( $validated_value ) !== count( $intersection ) ) {
-				return new WP_Error( 'error', happyforms_get_validation_message( 'field_invalid' ) );
+			if (count($validated_value) !== count($intersection)) {
+				return new WP_Error('error', happyforms_get_validation_message('field_invalid'));
 			}
 
-			if ( is_wp_error( $validated_value ) ) {
+			if (is_wp_error($validated_value)) {
 				return $validated_value;
 			}
 
-			foreach ( $validated_value as $value ) {
-				$value = $this->validate_option_limits( $value, $part, $form );
+			foreach ($validated_value as $value) {
+				$value = $this->validate_option_limits($value, $part, $form);
 
-				if ( is_wp_error( $value ) ) {
+				if (is_wp_error($value)) {
 					return $value;
 				}
 			}
 		}
 
-		$numeric_values = array_filter( $validated_value, 'is_int' );
-		$array_values = array_filter( $validated_value, 'is_array' );
-		$options = array_keys( $part['options'] );
-		$intersection = array_intersect( $options, $numeric_values );
+		$numeric_values = array_filter($validated_value, 'is_int');
+		$array_values = array_filter($validated_value, 'is_array');
+		$options = array_keys($part['options']);
+		$intersection = array_intersect($options, $numeric_values);
 
-		if ( count( $numeric_values ) !== count( $intersection ) ) {
-			return new WP_Error( 'error', happyforms_get_validation_message( 'field_invalid' ) );
+		if (count($numeric_values) !== count($intersection)) {
+			return new WP_Error('error', happyforms_get_validation_message('field_invalid'));
 		}
 
-		foreach ( $numeric_values as $numeric_value ) {
-			$validated_numeric_value = $this->validate_option_limits( $numeric_value, $part, $form );
+		foreach ($numeric_values as $numeric_value) {
+			$validated_numeric_value = $this->validate_option_limits($numeric_value, $part, $form);
 
-			if ( is_wp_error( $validated_numeric_value ) ) {
+			if (is_wp_error($validated_numeric_value)) {
 				return $validated_numeric_value;
 			}
 		}
 
-		foreach ( $array_values as $array_value ) {
-			if ( 1 === $part['required'] && ! isset( $array_value[1] ) ) {
-				$validated_value = new WP_Error( 'error', happyforms_get_validation_message( 'field_empty' ) );
+		foreach ($array_values as $array_value) {
+			if (1 === $part['required'] && ! isset($array_value[1])) {
+				$validated_value = new WP_Error('error', happyforms_get_validation_message('field_empty'));
 				return $validated_value;
 			}
 		}
 
-		foreach ( $validated_value as $key => $value ) {
-			if ( is_array( $validated_value[ $key ] ) ) {
-				foreach ( $validated_value[$key] as $opt_key  => $opt_val ) {
-					if ( '' == $validated_value[$key][$opt_key] ) {
-						return new WP_Error( 'error', happyforms_get_validation_message( 'field_invalid' ) );
+		foreach ($validated_value as $key => $value) {
+			if (is_array($validated_value[$key])) {
+				foreach ($validated_value[$key] as $opt_key  => $opt_val) {
+					if ('' == $validated_value[$key][$opt_key]) {
+						return new WP_Error('error', happyforms_get_validation_message('field_invalid'));
 					}
 				}
 			}
@@ -321,10 +322,10 @@ class HappyForms_Part_Checkbox extends HappyForms_Form_Part {
 		return $validated_value;
 	}
 
-	public function get_part_value( $value, $part, $form ) {
-		if ( $this->type === $part['type'] ) {
-			foreach ( $part['options'] as $o => $option ) {
-				if ( ! happyforms_is_falsy( $option['is_default'] ) ) {
+	public function get_part_value($value, $part, $form) {
+		if ($this->type === $part['type']) {
+			foreach ($part['options'] as $o => $option) {
+				if (! happyforms_is_falsy($option['is_default'])) {
 					$value[] = $o;
 				}
 			}
@@ -333,26 +334,26 @@ class HappyForms_Part_Checkbox extends HappyForms_Form_Part {
 		return $value;
 	}
 
-	public function stringify_value( $value, $part, $form, $force = false ) {
-		if ( $this->type === $part['type'] || $force ) {
-			if ( empty( $value ) ) {
+	public function stringify_value($value, $part, $form, $force = false) {
+		if ($this->type === $part['type'] || $force) {
+			if (empty($value)) {
 				return $value;
 			}
 			$original_value = $value;
-			$options = happyforms_get_part_options( $part['options'], $part, $form );
-			$labels = wp_list_pluck( $options, 'label' );
-			$contains_array = array_map( 'is_array', $value );
+			$options = happyforms_get_part_options($part['options'], $part, $form);
+			$labels = wp_list_pluck($options, 'label');
+			$contains_array = array_map('is_array', $value);
 
-			if ( ! in_array( true, $contains_array ) ) {
-				foreach ( $value as $i => $index ) {
+			if (! in_array(true, $contains_array)) {
+				foreach ($value as $i => $index) {
 					$value[$i] = $labels[$index];
 				}
 
-				$value = implode( ', ', $value );
+				$value = implode(', ', $value);
 			} else {
-				foreach ( $value as $i => $index ) {
+				foreach ($value as $i => $index) {
 					$label = '';
-					if ( is_array( $index ) && ! empty( $index[1] ) ) { // other option
+					if (is_array($index) && ! empty($index[1])) { // other option
 						$value[$i] = $index[1];
 					} else { // standard option
 						$value[$i] = $options[$index]['label'];
@@ -364,22 +365,22 @@ class HappyForms_Part_Checkbox extends HappyForms_Form_Part {
 		return $value;
 	}
 
-	private function clamp( $v, $min, $max ) {
-		return min( max( $v, $min ), $max );
+	private function clamp($v, $min, $max) {
+		return min(max($v, $min), $max);
 	}
 
-	public function validate_part( $part_data ) {
-		if ( $this->type !== $part_data['type'] ) {
+	public function validate_part($part_data) {
+		if ($this->type !== $part_data['type']) {
 			return $part_data;
 		}
 
-		$min_choices = intval( $part_data['limit_choices_min'] );
-		$max_choices = intval( $part_data['limit_choices_max'] );
-		$num_choices = count( $part_data['options'] );
+		$min_choices = intval($part_data['limit_choices_min']);
+		$max_choices = intval($part_data['limit_choices_max']);
+		$num_choices = count($part_data['options']);
 
-		$min_choices = $this->clamp( $min_choices, $num_choices > 1 ? 2 : 1, $min_choices );
-		$min_choices = $this->clamp( $min_choices, $min_choices, $num_choices );
-		$max_choices = $this->clamp( $max_choices, $min_choices, $num_choices );
+		$min_choices = $this->clamp($min_choices, $num_choices > 1 ? 2 : 1, $min_choices);
+		$min_choices = $this->clamp($min_choices, $min_choices, $num_choices);
+		$max_choices = $this->clamp($max_choices, $min_choices, $num_choices);
 
 		$part_data['limit_choices_min'] = $min_choices;
 		$part_data['limit_choices_max'] = $max_choices;
@@ -387,30 +388,30 @@ class HappyForms_Part_Checkbox extends HappyForms_Form_Part {
 		return $part_data;
 	}
 
-	private function validate_option_limits( $value, $part, $form ) {
-		foreach( $part['options'] as $o => $option ) {
-			$option = wp_parse_args( $option, happyforms_upgrade_get_option_limiter()->get_option_fields() );
+	private function validate_option_limits($value, $part, $form) {
+		foreach ($part['options'] as $o => $option) {
+			$option = wp_parse_args($option, happyforms_upgrade_get_option_limiter()->get_option_fields());
 
-			if ( '' == $option['limit_submissions_amount'] || $o !== intval( $value ) ) {
+			if ('' == $option['limit_submissions_amount'] || $o !== intval($value)) {
 				continue;
 			}
 
-			$limit = intval( $option['limit_submissions_amount'] );
-			$count = happyforms_upgrade_get_option_limiter()->count_by_option( $form['ID'], $part['id'], $option['id'] );
+			$limit = intval($option['limit_submissions_amount']);
+			$count = happyforms_upgrade_get_option_limiter()->count_by_option($form['ID'], $part['id'], $option['id']);
 
-			if ( $count >= $limit ) {
-				return new WP_Error( 'error', happyforms_get_validation_message( 'field_invalid' ) );
+			if ($count >= $limit) {
+				return new WP_Error('error', happyforms_get_validation_message('field_invalid'));
 			}
 		}
 
 		return $value;
 	}
 
-	public function html_part_class( $class, $part, $form ) {
-		if ( $this->type === $part['type'] ) {
+	public function html_part_class($class, $part, $form) {
+		if ($this->type === $part['type']) {
 			$class[] = 'happyforms-part--choice';
 
-			if ( 'block' === $part['display_type'] ) {
+			if ('block' === $part['display_type']) {
 				$class[] = 'display-type--block';
 			}
 		}
@@ -418,30 +419,31 @@ class HappyForms_Part_Checkbox extends HappyForms_Form_Part {
 		return $class;
 	}
 
-	public function script_dependencies( $deps, $forms ) {
+	public function script_dependencies($deps, $forms) {
 		$contains_checkbox = false;
 		$form_controller = happyforms_get_form_controller();
 
-		foreach ( $forms as $form ) {
-			if ( $form_controller->get_first_part_by_type( $form, $this->type ) ) {
+		foreach ($forms as $form) {
+			if ($form_controller->get_first_part_by_type($form, $this->type)) {
 				$contains_checkbox = true;
 				break;
 			}
 		}
 
-		if ( ! happyforms_is_preview() && ! $contains_checkbox ) {
+		if (! happyforms_is_preview() && ! $contains_checkbox) {
 			return $deps;
 		}
 
 		wp_register_script(
 			'happyforms-checkbox',
 			happyforms_get_plugin_url() . 'core/assets/js/frontend/checkbox.js',
-			array(), happyforms_get_version(), true
+			array(),
+			happyforms_get_version(),
+			true
 		);
 
 		$deps[] = 'happyforms-checkbox';
 
 		return $deps;
 	}
-
 }

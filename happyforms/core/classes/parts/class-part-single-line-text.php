@@ -1,18 +1,17 @@
 <?php
 
 class HappyForms_Part_SingleLineText extends HappyForms_Form_Part {
-
 	public $type = 'single_line_text';
 
 	public function __construct() {
-		$this->label = __( 'Text', 'happyforms' );
-		$this->description = __( 'For single line text fields.', 'happyforms' );
+		$this->label = __('Text', 'happyforms');
+		$this->description = __('For single line text fields.', 'happyforms');
 
-		add_filter( 'happyforms_part_value', array( $this, 'get_part_value' ), 10, 3 );
-		add_filter( 'happyforms_the_part_value', array( $this, 'output_part_value' ), 10, 3 );
-		add_filter( 'happyforms_stringify_part_value', array( $this, 'stringify_value' ), 10, 3 );
-		add_filter( 'happyforms_part_class', array( $this, 'html_part_class' ), 10, 3 );
-		add_filter( 'happyforms_email_part_visible', array( $this, 'email_part_visible' ), 10, 4 );
+		add_filter('happyforms_part_value', array($this, 'get_part_value'), 10, 3);
+		add_filter('happyforms_the_part_value', array($this, 'output_part_value'), 10, 3);
+		add_filter('happyforms_stringify_part_value', array($this, 'stringify_value'), 10, 3);
+		add_filter('happyforms_part_class', array($this, 'html_part_class'), 10, 3);
+		add_filter('happyforms_email_part_visible', array($this, 'email_part_visible'), 10, 4);
 	}
 
 	/**
@@ -29,7 +28,7 @@ class HappyForms_Part_SingleLineText extends HappyForms_Form_Part {
 				'sanitize' => 'sanitize_text_field',
 			),
 			'label' => array(
-				'default' => __( '', 'happyforms' ),
+				'default' => __('', 'happyforms'),
 				'sanitize' => 'sanitize_text_field',
 			),
 			'label_placement' => array(
@@ -62,7 +61,7 @@ class HappyForms_Part_SingleLineText extends HappyForms_Form_Part {
 			),
 			'css_class' => array(
 				'default' => '',
-				'sanitize' => 'sanitize_text_field'
+				'sanitize' => 'happyforms_sanitize_classnames',
 			),
 			'required' => array(
 				'default' => 1,
@@ -78,7 +77,7 @@ class HappyForms_Part_SingleLineText extends HappyForms_Form_Part {
 			)
 		);
 
-		return happyforms_get_part_customize_fields( $fields, $this->type );
+		return happyforms_get_part_customize_fields($fields, $this->type);
 	}
 
 	/**
@@ -90,9 +89,9 @@ class HappyForms_Part_SingleLineText extends HappyForms_Form_Part {
 	 */
 	public function customize_templates() {
 		$template_path = happyforms_get_core_folder() . '/templates/parts/customize-single-line-text.php';
-		$template_path = happyforms_get_part_customize_template_path( $template_path, $this->type );
+		$template_path = happyforms_get_part_customize_template_path($template_path, $this->type);
 
-		require_once( $template_path );
+		require_once($template_path);
 	}
 
 	/**
@@ -105,11 +104,11 @@ class HappyForms_Part_SingleLineText extends HappyForms_Form_Part {
 	 *
 	 * @return string	Markup for the form part.
 	 */
-	public function frontend_template( $part_data = array(), $form_data = array() ) {
-		$part = wp_parse_args( $part_data, $this->get_customize_defaults() );
+	public function frontend_template($part_data = array(), $form_data = array()) {
+		$part = wp_parse_args($part_data, $this->get_customize_defaults());
 		$form = $form_data;
 
-		include( happyforms_get_core_folder() . '/templates/parts/frontend-single-line-text.php' );
+		include(happyforms_get_core_folder() . '/templates/parts/frontend-single-line-text.php');
 	}
 
 	/**
@@ -121,12 +120,12 @@ class HappyForms_Part_SingleLineText extends HappyForms_Form_Part {
 	 *
 	 * @return string
 	 */
-	public function sanitize_value( $part_data = array(), $form_data = array(), $request = array() ) {
-		$sanitized_value = $this->get_default_value( $part_data );
-		$part_name = happyforms_get_part_name( $part_data, $form_data );
+	public function sanitize_value($part_data = array(), $form_data = array(), $request = array()) {
+		$sanitized_value = $this->get_default_value($part_data);
+		$part_name = happyforms_get_part_name($part_data, $form_data);
 
-		if ( isset( $request[$part_name] ) ) {
-			$sanitized_value = sanitize_text_field( $request[$part_name] );
+		if (isset($request[$part_name])) {
+			$sanitized_value = sanitize_text_field($request[$part_name]);
 		}
 
 		return $sanitized_value;
@@ -142,45 +141,45 @@ class HappyForms_Part_SingleLineText extends HappyForms_Form_Part {
 	 *
 	 * @return string|object
 	 */
-	public function validate_value( $value, $part = array(), $form = array() ) {
-		if ( ( 1 === $part['required'] ) && ( '' === $value ) ) {
-			return new WP_Error( 'error', happyforms_get_validation_message( 'field_empty' ) );
+	public function validate_value($value, $part = array(), $form = array()) {
+		if ((1 === $part['required']) && ('' === $value)) {
+			return new WP_Error('error', happyforms_get_validation_message('field_empty'));
 		}
 
 		return $value;
 	}
 
-	public function stringify_value( $value, $part, $form ) {
-		if ( $this->type === $part['type'] ) {
+	public function stringify_value($value, $part, $form) {
+		if ($this->type === $part['type']) {
 			$value = "{$part['prefix']}{$value}{$part['suffix']}";
 		}
 
 		return $value;
 	}
 
-	public function get_part_value( $value, $part, $form ) {
-		if ( $this->type === $part['type'] ) {
+	public function get_part_value($value, $part, $form) {
+		if ($this->type === $part['type']) {
 			$value = $part['default_value'];
 		}
 
 		return $value;
 	}
 
-	public function output_part_value( $value, $part, $form ) {
-		if ( $this->type === $part['type'] ) {
-			$value = stripslashes( $value );
+	public function output_part_value($value, $part, $form) {
+		if ($this->type === $part['type']) {
+			$value = stripslashes($value);
 		}
 
 		return $value;
 	}
 
-	public function html_part_class( $class, $part, $form ) {
-		if ( $this->type === $part['type'] ) {
-			if ( happyforms_get_part_value( $part, $form ) ) {
+	public function html_part_class($class, $part, $form) {
+		if ($this->type === $part['type']) {
+			if (happyforms_get_part_value($part, $form)) {
 				$class[] = 'happyforms-part--filled';
 			}
 
-			if ( 'focus-reveal' === $part['description_mode'] ) {
+			if ('focus-reveal' === $part['description_mode']) {
 				$class[] = 'happyforms-part--focus-reveal-description';
 			}
 		}
@@ -188,12 +187,12 @@ class HappyForms_Part_SingleLineText extends HappyForms_Form_Part {
 		return $class;
 	}
 
-	public function email_part_visible( $visible, $part, $form, $response ) {
-		if ( $this->type === $part['type'] ) {
+	public function email_part_visible($visible, $part, $form, $response) {
+		if ($this->type === $part['type']) {
 			$empty_value = $part['prefix'] . $part['suffix'];
-			$value = happyforms_get_email_part_value( $response, $part, $form );
+			$value = happyforms_get_email_part_value($response, $part, $form);
 
-			if ( $empty_value === $value ) {
+			if ($empty_value === $value) {
 				$visible = false;
 			}
 		}
@@ -210,12 +209,13 @@ class HappyForms_Part_SingleLineText extends HappyForms_Form_Part {
 	 *
 	 * @return void
 	 */
-	public function customize_enqueue_scripts( $deps = array() ) {
+	public function customize_enqueue_scripts($deps = array()) {
 		wp_enqueue_script(
 			'part-single-line-text',
 			happyforms_get_plugin_url() . 'core/assets/js/parts/part-single-line-text.js',
-			$deps, happyforms_get_version(), true
+			$deps,
+			happyforms_get_version(),
+			true
 		);
 	}
-
 }

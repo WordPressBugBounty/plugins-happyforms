@@ -1,21 +1,20 @@
 <?php
 
 class HappyForms_Part_Email extends HappyForms_Form_Part {
-
 	public $type = 'email';
 
 	public function __construct() {
-		$this->label = __( 'Email', 'happyforms' );
-		$this->description = __( 'For formatted email addresses. The \'@\' symbol is required.', 'happyforms' );
+		$this->label = __('Email', 'happyforms');
+		$this->description = __('For formatted email addresses. The \'@\' symbol is required.', 'happyforms');
 
-		add_filter( 'happyforms_part_value', array( $this, 'get_part_value' ), 10, 3 );
-		add_filter( 'happyforms_part_class', array( $this, 'html_part_class' ), 10, 3 );
-		add_filter( 'happyforms_message_part_value', array( $this, 'message_part_value' ), 10, 4 );
-		add_filter( 'happyforms_frontend_dependencies', array( $this, 'script_dependencies' ), 10, 2 );
-		add_filter( 'happyforms_stringify_part_value', array( $this, 'stringify_value' ), 10, 3 );
-		add_filter( 'happyforms_validate_part', array( $this, 'validate_part' ) );
-		add_filter( 'happyforms_email_part_visible', array( $this, 'email_part_visible' ), 10, 4 );
-		add_filter( 'happyforms_the_part_value', array( $this, 'handle_confirmation_value' ), 10, 4 );
+		add_filter('happyforms_part_value', array($this, 'get_part_value'), 10, 3);
+		add_filter('happyforms_part_class', array($this, 'html_part_class'), 10, 3);
+		add_filter('happyforms_message_part_value', array($this, 'message_part_value'), 10, 4);
+		add_filter('happyforms_frontend_dependencies', array($this, 'script_dependencies'), 10, 2);
+		add_filter('happyforms_stringify_part_value', array($this, 'stringify_value'), 10, 3);
+		add_filter('happyforms_validate_part', array($this, 'validate_part'));
+		add_filter('happyforms_email_part_visible', array($this, 'email_part_visible'), 10, 4);
+		add_filter('happyforms_the_part_value', array($this, 'handle_confirmation_value'), 10, 4);
 	}
 
 	/**
@@ -32,7 +31,7 @@ class HappyForms_Part_Email extends HappyForms_Form_Part {
 				'sanitize' => 'sanitize_text_field',
 			),
 			'label' => array(
-				'default' => __( '', 'happyforms' ),
+				'default' => __('', 'happyforms'),
 				'sanitize' => 'sanitize_text_field',
 			),
 			'label_placement' => array(
@@ -65,7 +64,7 @@ class HappyForms_Part_Email extends HappyForms_Form_Part {
 			),
 			'css_class' => array(
 				'default' => '',
-				'sanitize' => 'sanitize_text_field'
+				'sanitize' => 'happyforms_sanitize_classnames'
 			),
 			'required' => array(
 				'default' => 1,
@@ -77,7 +76,7 @@ class HappyForms_Part_Email extends HappyForms_Form_Part {
 			)
 		);
 
-		return happyforms_get_part_customize_fields( $fields, $this->type );
+		return happyforms_get_part_customize_fields($fields, $this->type);
 	}
 
 	/**
@@ -89,29 +88,29 @@ class HappyForms_Part_Email extends HappyForms_Form_Part {
 	 */
 	public function customize_templates() {
 		$template_path = happyforms_get_core_folder() . '/templates/parts/customize-email.php';
-		$template_path = happyforms_get_part_customize_template_path( $template_path, $this->type );
+		$template_path = happyforms_get_part_customize_template_path($template_path, $this->type);
 
-		require_once( $template_path );
+		require_once($template_path);
 	}
 
-	public function validate_part( $part_data ) {
-		if ( $this->type !== $part_data['type'] ) {
+	public function validate_part($part_data) {
+		if ($this->type !== $part_data['type']) {
 			return $part_data;
 		}
 
 		return $part_data;
 	}
 
-	public function email_part_visible( $visible, $part, $form, $response ) {
-		if ( $this->type === $part['type'] ) {
-			if ( ( '' === $part['prefix'] ) && ( '' === $part['suffix'] ) ) {
+	public function email_part_visible($visible, $part, $form, $response) {
+		if ($this->type === $part['type']) {
+			if (('' === $part['prefix']) && ('' === $part['suffix'])) {
 				return $visible;
 			}
 
 			$empty_value = $part['prefix'] . $part['suffix'];
-			$value = happyforms_get_message_part_value( $response['parts'][$part['id']], $part );
+			$value = happyforms_get_message_part_value($response['parts'][$part['id']], $part);
 
-			if ( $empty_value === $value ) {
+			if ($empty_value === $value) {
 				$visible = false;
 			}
 		}
@@ -119,9 +118,9 @@ class HappyForms_Part_Email extends HappyForms_Form_Part {
 		return $visible;
 	}
 
-	public function handle_confirmation_value( $value, $part, $form, $component ) {
-		if ( $this->type === $part['type'] ) {
-			if ( false === $component && is_array( $value ) ) {
+	public function handle_confirmation_value($value, $part, $form, $component) {
+		if ($this->type === $part['type']) {
+			if (false === $component && is_array($value)) {
 				$value = $value[0];
 			}
 		}
@@ -139,11 +138,11 @@ class HappyForms_Part_Email extends HappyForms_Form_Part {
 	 *
 	 * @return string	Markup for the form part.
 	 */
-	public function frontend_template( $part_data = array(), $form_data = array() ) {
-		$part = wp_parse_args( $part_data, $this->get_customize_defaults() );
+	public function frontend_template($part_data = array(), $form_data = array()) {
+		$part = wp_parse_args($part_data, $this->get_customize_defaults());
 		$form = $form_data;
 
-		include( happyforms_get_core_folder() . '/templates/parts/frontend-email.php' );
+		include(happyforms_get_core_folder() . '/templates/parts/frontend-email.php');
 	}
 
 	/**
@@ -155,12 +154,12 @@ class HappyForms_Part_Email extends HappyForms_Form_Part {
 	 *
 	 * @return string
 	 */
-	public function sanitize_value( $part_data = array(), $form_data = array(), $request = array() ) {
-		$sanitized_value = $this->get_default_value( $part_data );
-		$part_name = happyforms_get_part_name( $part_data, $form_data );
+	public function sanitize_value($part_data = array(), $form_data = array(), $request = array()) {
+		$sanitized_value = $this->get_default_value($part_data);
+		$part_name = happyforms_get_part_name($part_data, $form_data);
 
-		if ( isset( $request[$part_name] ) ) {
-			$sanitized_value = sanitize_text_field( $request[$part_name] );
+		if (isset($request[$part_name])) {
+			$sanitized_value = sanitize_text_field($request[$part_name]);
 		}
 
 		return $sanitized_value;
@@ -176,12 +175,12 @@ class HappyForms_Part_Email extends HappyForms_Form_Part {
 	 *
 	 * @return string|object
 	 */
-	public function validate_value( $value, $part = array(), $form = array() ) {
-		$part_name = happyforms_get_part_name( $part, $form );
+	public function validate_value($value, $part = array(), $form = array()) {
+		$part_name = happyforms_get_part_name($part, $form);
 
-		if ( empty( $value ) ) {
-			if ( 1 == $part['required'] ) {
-				$error = new WP_Error( 'error', happyforms_get_validation_message( 'field_empty' ) );
+		if (empty($value)) {
+			if (1 == $part['required']) {
+				$error = new WP_Error('error', happyforms_get_validation_message('field_empty'));
 
 				return $error;
 			} else {
@@ -191,16 +190,16 @@ class HappyForms_Part_Email extends HappyForms_Form_Part {
 
 		$validation_value = $value;
 
-		if ( ( '' !== $part['prefix'] ) ) {
+		if (('' !== $part['prefix'])) {
 			$validation_value = "{$part['prefix']}{$validation_value}";
 		}
 
-		if ( ( '' !== $part['suffix'] ) ) {
+		if (('' !== $part['suffix'])) {
 			$validation_value = "{$validation_value}{$part['suffix']}";
 		}
 
-		if ( ! happyforms_is_email( $validation_value ) ) {
-			$error = new WP_error( 'error', happyforms_get_validation_message( 'field_invalid' ) );
+		if (! happyforms_is_email($validation_value)) {
+			$error = new WP_error('error', happyforms_get_validation_message('field_invalid'));
 
 			return $error;
 		}
@@ -209,21 +208,21 @@ class HappyForms_Part_Email extends HappyForms_Form_Part {
 		return $value;
 	}
 
-	public function get_part_value( $value, $part, $form ){
-		if ( $this->type === $part['type'] ) {
+	public function get_part_value($value, $part, $form) {
+		if ($this->type === $part['type']) {
 			$value = $part['default_value'];
 		}
 		return $value;
 	}
 
-	public function stringify_value( $value, $part, $form ) {
-		if ( $this->type === $part['type'] ) {
-			$value = happyforms_get_email_encoder()->decode_email( $value );
+	public function stringify_value($value, $part, $form) {
+		if ($this->type === $part['type']) {
+			$value = happyforms_get_email_encoder()->decode_email($value);
 
-			if ( ! empty( $part['prefix'] ) ) {
+			if (! empty($part['prefix'])) {
 				$value = "{$part['prefix']}{$value}";
 			}
-			if ( ! empty( $part['suffix'] ) ) {
+			if (! empty($part['suffix'])) {
 				$value = "{$value}{$part['suffix']}";
 			}
 		}
@@ -231,14 +230,14 @@ class HappyForms_Part_Email extends HappyForms_Form_Part {
 		return $value;
 	}
 
-	public function html_part_class( $class, $part, $form ) {
-		if ( $this->type === $part['type'] ) {
-			if ( happyforms_get_part_value( $part, $form, 0 )
-				|| happyforms_get_part_value( $part, $form, 1 ) ) {
+	public function html_part_class($class, $part, $form) {
+		if ($this->type === $part['type']) {
+			if (happyforms_get_part_value($part, $form, 0)
+				|| happyforms_get_part_value($part, $form, 1)) {
 				$class[] = 'happyforms-part--filled';
 			}
 
-			if ( 'focus-reveal' === $part['description_mode'] ) {
+			if ('focus-reveal' === $part['description_mode']) {
 				$class[] = 'happyforms-part--focus-reveal-description';
 			}
 
@@ -248,11 +247,10 @@ class HappyForms_Part_Email extends HappyForms_Form_Part {
 		return $class;
 	}
 
-	public function message_part_value( $value, $original_value, $part, $destination ) {
-		if ( isset( $part['type'] )
-			&& $this->type === $part['type'] ) {
-
-			switch( $destination ) {
+	public function message_part_value($value, $original_value, $part, $destination) {
+		if (isset($part['type'])
+			&& $this->type === $part['type']) {
+			switch($destination) {
 				case 'email':
 				case 'admin-column':
 					$value = "<a href=\"mailto:{$value}\">{$value}</a>";
@@ -260,7 +258,6 @@ class HappyForms_Part_Email extends HappyForms_Form_Part {
 				default:
 					break;
 			}
-
 		}
 
 		return $value;
@@ -275,33 +272,37 @@ class HappyForms_Part_Email extends HappyForms_Form_Part {
 	 *
 	 * @return void
 	 */
-	public function customize_enqueue_scripts( $deps = array() ) {
+	public function customize_enqueue_scripts($deps = array()) {
 		wp_enqueue_script(
 			'part-email',
 			happyforms_get_plugin_url() . 'core/assets/js/parts/part-email.js',
-			$deps, happyforms_get_version(), true
+			$deps,
+			happyforms_get_version(),
+			true
 		);
 	}
 
-	public function script_dependencies( $deps, $forms ) {
+	public function script_dependencies($deps, $forms) {
 		$contains_email = false;
 		$form_controller = happyforms_get_form_controller();
 
-		foreach ( $forms as $form ) {
-			if ( $form_controller->get_first_part_by_type( $form, $this->type ) ) {
+		foreach ($forms as $form) {
+			if ($form_controller->get_first_part_by_type($form, $this->type)) {
 				$contains_email = true;
 				break;
 			}
 		}
 
-		if ( ! happyforms_is_preview() && ! $contains_email ) {
+		if (! happyforms_is_preview() && ! $contains_email) {
 			return $deps;
 		}
 
 		wp_register_script(
 			'happyforms-email',
 			happyforms_get_plugin_url() . 'core/assets/js/frontend/email.js',
-			array(), happyforms_get_version(), true
+			array(),
+			happyforms_get_version(),
+			true
 		);
 
 		$deps[] = 'happyforms-email';

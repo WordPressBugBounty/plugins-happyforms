@@ -1,21 +1,20 @@
 <?php
 
 class HappyForms_Part_Number extends HappyForms_Form_Part {
-
 	public $type = 'number';
 
 	public function __construct() {
-		$this->label = __( 'Number', 'happyforms' );
-		$this->description = __( 'For numeric fields.', 'happyforms' );
+		$this->label = __('Number', 'happyforms');
+		$this->description = __('For numeric fields.', 'happyforms');
 
-		add_filter( 'happyforms_part_value', array( $this, 'get_part_value' ), 10, 3 );
-		add_filter( 'happyforms_part_class', array( $this, 'html_part_class' ), 10, 3 );
-		add_filter( 'happyforms_part_data_attributes', array( $this, 'html_part_data_attributes' ), 10, 3 );
-		add_filter( 'happyforms_frontend_dependencies', array( $this, 'script_dependencies' ), 10, 2 );
-		add_filter( 'happyforms_stringify_part_value', array( $this, 'stringify_value' ), 10, 3 );
-		add_filter( 'happyforms_validate_part', array( $this, 'validate_part' ) );
-		add_filter( 'happyforms_email_part_visible', array( $this, 'email_part_visible' ), 10, 4 );
-		add_filter( 'happyforms_the_part_value', array( $this, 'handle_confirmation_value' ), 10, 4 );
+		add_filter('happyforms_part_value', array($this, 'get_part_value'), 10, 3);
+		add_filter('happyforms_part_class', array($this, 'html_part_class'), 10, 3);
+		add_filter('happyforms_part_data_attributes', array($this, 'html_part_data_attributes'), 10, 3);
+		add_filter('happyforms_frontend_dependencies', array($this, 'script_dependencies'), 10, 2);
+		add_filter('happyforms_stringify_part_value', array($this, 'stringify_value'), 10, 3);
+		add_filter('happyforms_validate_part', array($this, 'validate_part'));
+		add_filter('happyforms_email_part_visible', array($this, 'email_part_visible'), 10, 4);
+		add_filter('happyforms_the_part_value', array($this, 'handle_confirmation_value'), 10, 4);
 	}
 
 	/**
@@ -32,7 +31,7 @@ class HappyForms_Part_Number extends HappyForms_Form_Part {
 				'sanitize' => 'sanitize_text_field',
 			),
 			'label' => array(
-				'default' => __( '', 'happyforms' ),
+				'default' => __('', 'happyforms'),
 				'sanitize' => 'sanitize_text_field',
 			),
 			'label_placement' => array(
@@ -57,7 +56,7 @@ class HappyForms_Part_Number extends HappyForms_Form_Part {
 			),
 			'css_class' => array(
 				'default' => '',
-				'sanitize' => 'sanitize_text_field'
+				'sanitize' => 'happyforms_sanitize_classnames'
 			),
 			'min_value' => array(
 				'default' => '',
@@ -91,7 +90,7 @@ class HappyForms_Part_Number extends HappyForms_Form_Part {
 				'default' => '',
 				'sanitize' => 'sanitize_text_field'
 			),
- 			'required' => array(
+			'required' => array(
 				'default' => 1,
 				'sanitize' => 'happyforms_sanitize_checkbox',
 			),
@@ -101,7 +100,7 @@ class HappyForms_Part_Number extends HappyForms_Form_Part {
 			)
 		);
 
-		return happyforms_get_part_customize_fields( $fields, $this->type );
+		return happyforms_get_part_customize_fields($fields, $this->type);
 	}
 
 	/**
@@ -113,42 +112,42 @@ class HappyForms_Part_Number extends HappyForms_Form_Part {
 	 */
 	public function customize_templates() {
 		$template_path = happyforms_get_core_folder() . '/templates/parts/customize-number.php';
-		$template_path = happyforms_get_part_customize_template_path( $template_path, $this->type );
+		$template_path = happyforms_get_part_customize_template_path($template_path, $this->type);
 
-		require_once( $template_path );
+		require_once($template_path);
 	}
 
-	public function validate_part( $part_data ) {
-		if ( $this->type !== $part_data['type'] ) {
+	public function validate_part($part_data) {
+		if ($this->type !== $part_data['type']) {
 			return $part_data;
 		}
 
-		if ( '' === $part_data['min_value'] || '' === $part_data['max_value'] ) {
+		if ('' === $part_data['min_value'] || '' === $part_data['max_value']) {
 			return $part_data;
 		}
 
 		$min_value = $part_data['min_value'];
 		$max_value = $part_data['max_value'];
 
-		$min_value = intval( $min_value );
-		$max_value = intval( $max_value );
-		$min_value = min( $min_value, $max_value );
+		$min_value = intval($min_value);
+		$max_value = intval($max_value);
+		$min_value = min($min_value, $max_value);
 
 		$part_data['min_value'] = $min_value;
 
 		return $part_data;
 	}
 
-	public function email_part_visible( $visible, $part, $form, $response ) {
-		if ( $this->type === $part['type'] ) {
-			if ( ( '' === $part['mask_numeric_prefix'] ) && ( '' === $part['mask_numeric_suffix'] ) ) {
+	public function email_part_visible($visible, $part, $form, $response) {
+		if ($this->type === $part['type']) {
+			if (('' === $part['mask_numeric_prefix']) && ('' === $part['mask_numeric_suffix'])) {
 				return $visible;
 			}
 
 			$empty_value = $part['mask_numeric_prefix'] . $part['mask_numeric_suffix'];
-			$value = happyforms_get_email_part_value( $response, $part, $form );
+			$value = happyforms_get_email_part_value($response, $part, $form);
 
-			if ( $empty_value === $value ) {
+			if ($empty_value === $value) {
 				$visible = false;
 			}
 		}
@@ -156,9 +155,9 @@ class HappyForms_Part_Number extends HappyForms_Form_Part {
 		return $visible;
 	}
 
-	public function handle_confirmation_value( $value, $part, $form, $component ) {
-		if ( $this->type === $part['type'] ) {
-			if ( false === $component && is_array( $value ) ) {
+	public function handle_confirmation_value($value, $part, $form, $component) {
+		if ($this->type === $part['type']) {
+			if (false === $component && is_array($value)) {
 				$value = $value[0];
 			}
 		}
@@ -176,11 +175,11 @@ class HappyForms_Part_Number extends HappyForms_Form_Part {
 	 *
 	 * @return string	Markup for the form part.
 	 */
-	public function frontend_template( $part_data = array(), $form_data = array() ) {
-		$part = wp_parse_args( $part_data, $this->get_customize_defaults() );
+	public function frontend_template($part_data = array(), $form_data = array()) {
+		$part = wp_parse_args($part_data, $this->get_customize_defaults());
 		$form = $form_data;
 
-		include( happyforms_get_core_folder() . '/templates/parts/frontend-number.php' );
+		include(happyforms_get_core_folder() . '/templates/parts/frontend-number.php');
 	}
 
 	/**
@@ -192,12 +191,12 @@ class HappyForms_Part_Number extends HappyForms_Form_Part {
 	 *
 	 * @return string
 	 */
-	public function sanitize_value( $part_data = array(), $form_data = array(), $request = array() ) {
-		$sanitized_value = $this->get_default_value( $part_data );
-		$part_name = happyforms_get_part_name( $part_data, $form_data );
+	public function sanitize_value($part_data = array(), $form_data = array(), $request = array()) {
+		$sanitized_value = $this->get_default_value($part_data);
+		$part_name = happyforms_get_part_name($part_data, $form_data);
 
-		if ( isset( $request[$part_name] ) ) {
-			$sanitized_value = sanitize_text_field( $request[$part_name] );
+		if (isset($request[$part_name])) {
+			$sanitized_value = sanitize_text_field($request[$part_name]);
 		}
 
 		return $sanitized_value;
@@ -214,58 +213,58 @@ class HappyForms_Part_Number extends HappyForms_Form_Part {
 	 *
 	 * @return string|object
 	 */
-	public function validate_value( $value, $part = array(), $form = array() ) {
-		$part_name = happyforms_get_part_name( $part, $form );
+	public function validate_value($value, $part = array(), $form = array()) {
+		$part_name = happyforms_get_part_name($part, $form);
 		$validated_values = $value;
 
-		if ( $part['required'] && '' === $validated_values ) {
-			$error = new WP_Error( 'error', happyforms_get_validation_message( 'field_empty' ) );
+		if ($part['required'] && '' === $validated_values) {
+			$error = new WP_Error('error', happyforms_get_validation_message('field_empty'));
 
 			return $error;
 		}
 
-		if ( '' === $validated_values ) {
+		if ('' === $validated_values) {
 			return $validated_values;
 		}
 
 		$validation_number = $validated_values;
 
-		if ( $part['masked'] ) {
-			$validation_number = str_replace( $part['mask_numeric_prefix'], '', $validation_number );
-			$validation_number = trim( $validation_number );
-			$validation_number = str_replace( $part['mask_numeric_thousands_delimiter'], '', $validation_number );
-			$validation_number = str_replace( $part['mask_numeric_decimal_mark'], '.', $validation_number );
+		if ($part['masked']) {
+			$validation_number = str_replace($part['mask_numeric_prefix'], '', $validation_number);
+			$validation_number = trim($validation_number);
+			$validation_number = str_replace($part['mask_numeric_thousands_delimiter'], '', $validation_number);
+			$validation_number = str_replace($part['mask_numeric_decimal_mark'], '.', $validation_number);
 		}
 
 		// Bounds check
-		$validation_number = floatval( $validation_number );
+		$validation_number = floatval($validation_number);
 
-		if ( '' !== $part['min_value'] ) {
-			$min_value = intval( $part['min_value'] );
+		if ('' !== $part['min_value']) {
+			$min_value = intval($part['min_value']);
 
-			if ( $validation_number < $min_value ) {
-				return new WP_Error( 'error', happyforms_get_validation_message( 'number_min_invalid' ) );
+			if ($validation_number < $min_value) {
+				return new WP_Error('error', happyforms_get_validation_message('number_min_invalid'));
 			}
 		}
 
-		if ( '' !== $part['max_value'] ) {
-			$max_value = intval( $part['max_value'] );
+		if ('' !== $part['max_value']) {
+			$max_value = intval($part['max_value']);
 
-			if ( $validation_number > $max_value ) {
-				return new WP_Error( 'error', happyforms_get_validation_message( 'number_max_invalid' ) );
+			if ($validation_number > $max_value) {
+				return new WP_Error('error', happyforms_get_validation_message('number_max_invalid'));
 			}
 		}
 
 		return $validated_values;
 	}
 
-	public function stringify_value( $value, $part, $form ) {
-		if ( $this->type === $part['type'] ) {
-			if ( ! empty( $part['mask_numeric_prefix'] ) ) {
+	public function stringify_value($value, $part, $form) {
+		if ($this->type === $part['type']) {
+			if (! empty($part['mask_numeric_prefix'])) {
 				$value = "{$part['mask_numeric_prefix']}{$value}";
 			}
 
-			if ( ! empty( $part['mask_numeric_suffix'] ) ) {
+			if (! empty($part['mask_numeric_suffix'])) {
 				$value = "{$value}{$part['mask_numeric_suffix']}";
 			}
 		}
@@ -282,22 +281,24 @@ class HappyForms_Part_Number extends HappyForms_Form_Part {
 	 *
 	 * @return void
 	 */
-	public function customize_enqueue_scripts( $deps = array() ) {
+	public function customize_enqueue_scripts($deps = array()) {
 		wp_enqueue_script(
 			'part-number',
 			happyforms_get_plugin_url() . 'core/assets/js/parts/part-number.js',
-			$deps, happyforms_get_version(), true
+			$deps,
+			happyforms_get_version(),
+			true
 		);
 	}
 
-	public function html_part_class( $class, $part, $form ) {
-		if ( $this->type === $part['type'] ) {
-			if ( happyforms_get_part_value( $part, $form, 0 )
-				|| happyforms_get_part_value( $part, $form, 1 ) ) {
+	public function html_part_class($class, $part, $form) {
+		if ($this->type === $part['type']) {
+			if (happyforms_get_part_value($part, $form, 0)
+				|| happyforms_get_part_value($part, $form, 1)) {
 				$class[] = 'happyforms-part--filled';
 			}
 
-			if ( 'focus-reveal' === $part['description_mode'] ) {
+			if ('focus-reveal' === $part['description_mode']) {
 				$class[] = 'happyforms-part--focus-reveal-description';
 			}
 		}
@@ -305,19 +306,19 @@ class HappyForms_Part_Number extends HappyForms_Form_Part {
 		return $class;
 	}
 
-	public function get_part_value( $value, $part, $form ){
-		if ( $this->type === $part['type'] ) {
+	public function get_part_value($value, $part, $form) {
+		if ($this->type === $part['type']) {
 			$value = $part['default_value'];
 		}
 		return $value;
 	}
 
-	public function html_part_data_attributes( $attributes, $part, $form ) {
-		if ( $this->type !== $part['type'] ) {
+	public function html_part_data_attributes($attributes, $part, $form) {
+		if ($this->type !== $part['type']) {
 			return $attributes;
 		}
 
-		if ( $part['masked'] ) {
+		if ($part['masked']) {
 			$attributes['mask'] = 'true';
 			$attributes['thousands-delimiter'] = $part['mask_numeric_thousands_delimiter'];
 			$attributes['decimal-mark'] = $part['mask_numeric_decimal_mark'];
@@ -338,36 +339,38 @@ class HappyForms_Part_Number extends HappyForms_Form_Part {
 	 *
 	 * @return array
 	 */
-	public function script_dependencies( $deps, $forms ) {
+	public function script_dependencies($deps, $forms) {
 		$contains_number = false;
 		$form_controller = happyforms_get_form_controller();
 
-		foreach ( $forms as $form ) {
-			if ( $form_controller->get_first_part_by_type( $form, $this->type ) ) {
+		foreach ($forms as $form) {
+			if ($form_controller->get_first_part_by_type($form, $this->type)) {
 				$contains_number = true;
 				break;
 			}
 		}
 
-		if ( ! happyforms_is_preview() && ! $contains_number ) {
+		if (! happyforms_is_preview() && ! $contains_number) {
 			return $deps;
 		}
 
 		wp_register_script(
 			'cleave',
 			happyforms_get_plugin_url() . 'core/assets/js/lib/cleave.min.js',
-			array(), happyforms_get_version()
+			array(),
+			happyforms_get_version()
 		);
 
 		wp_register_script(
 			'happyforms-part-number',
 			happyforms_get_plugin_url() . 'core/assets/js/frontend/number.js',
-			array( 'cleave' ), happyforms_get_version(), true
+			array('cleave'),
+			happyforms_get_version(),
+			true
 		);
 
 		$deps[] = 'happyforms-part-number';
 
 		return $deps;
 	}
-
 }

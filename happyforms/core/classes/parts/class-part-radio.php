@@ -1,7 +1,6 @@
 <?php
 
 class HappyForms_Part_Radio extends HappyForms_Form_Part {
-
 	public $type = 'radio';
 
 	public $template_id = 'happyforms-radio-template';
@@ -9,8 +8,8 @@ class HappyForms_Part_Radio extends HappyForms_Form_Part {
 	public static $parent;
 
 	public function __construct() {
-		$this->label = __( 'Radio', 'happyforms' );
-		$this->description = __( 'For radio buttons allowing one selection.', 'happyforms' );
+		$this->label = __('Radio', 'happyforms');
+		$this->description = __('For radio buttons allowing one selection.', 'happyforms');
 
 		$this->hook();
 	}
@@ -18,11 +17,11 @@ class HappyForms_Part_Radio extends HappyForms_Form_Part {
 	public function hook() {
 		self::$parent = $this;
 
-		add_filter( 'happyforms_part_input_after', array( $this, 'append_input' ), 10, 2 );
-		add_filter( 'happyforms_part_value', array( $this, 'get_part_value' ), 10, 3 );
-		add_filter( 'happyforms_stringify_part_value', array( $this, 'stringify_value' ), 10, 3 );
-		add_filter( 'happyforms_part_class', array( $this, 'html_part_class' ), 10, 3 );
-		add_filter( 'happyforms_frontend_dependencies', array( $this, 'script_dependencies' ), 10, 2 );
+		add_filter('happyforms_part_input_after', array($this, 'append_input'), 10, 2);
+		add_filter('happyforms_part_value', array($this, 'get_part_value'), 10, 3);
+		add_filter('happyforms_stringify_part_value', array($this, 'stringify_value'), 10, 3);
+		add_filter('happyforms_part_class', array($this, 'html_part_class'), 10, 3);
+		add_filter('happyforms_frontend_dependencies', array($this, 'script_dependencies'), 10, 2);
 	}
 
 	/**
@@ -39,7 +38,7 @@ class HappyForms_Part_Radio extends HappyForms_Form_Part {
 				'sanitize' => 'sanitize_text_field',
 			),
 			'label' => array(
-				'default' => __( '', 'happyforms' ),
+				'default' => __('', 'happyforms'),
 				'sanitize' => 'sanitize_text_field',
 			),
 			'label_placement' => array(
@@ -60,7 +59,7 @@ class HappyForms_Part_Radio extends HappyForms_Form_Part {
 			),
 			'css_class' => array(
 				'default' => '',
-				'sanitize' => 'sanitize_text_field'
+				'sanitize' => 'happyforms_sanitize_classnames'
 			),
 			'display_type' => array(
 				'default' => 'block',
@@ -79,7 +78,7 @@ class HappyForms_Part_Radio extends HappyForms_Form_Part {
 				'sanitize' => 'happyforms_sanitize_checkbox'
 			),
 			'other_option_label' => array(
-				'default' => __( 'Other', 'happyforms' ),
+				'default' => __('Other', 'happyforms'),
 				'sanitize' => 'sanitize_text_field'
 			),
 			'other_option_placeholder' => array(
@@ -88,7 +87,7 @@ class HappyForms_Part_Radio extends HappyForms_Form_Part {
 			),
 		);
 
-		return happyforms_get_part_customize_fields( $fields, $this->type );
+		return happyforms_get_part_customize_fields($fields, $this->type);
 	}
 
 	/**
@@ -116,9 +115,9 @@ class HappyForms_Part_Radio extends HappyForms_Form_Part {
 	 */
 	public function customize_templates() {
 		$template_path = happyforms_get_core_folder() . '/templates/parts/customize-radio.php';
-		$template_path = happyforms_get_part_customize_template_path( $template_path, $this->type );
+		$template_path = happyforms_get_part_customize_template_path($template_path, $this->type);
 
-		require_once( $template_path );
+		require_once($template_path);
 	}
 
 	/**
@@ -131,18 +130,18 @@ class HappyForms_Part_Radio extends HappyForms_Form_Part {
 	 *
 	 * @return string	Markup for the form part.
 	 */
-	public function frontend_template( $part_data = array(), $form_data = array() ) {
-		$part = wp_parse_args( $part_data, $this->get_customize_defaults() );
+	public function frontend_template($part_data = array(), $form_data = array()) {
+		$part = wp_parse_args($part_data, $this->get_customize_defaults());
 		$form = $form_data;
 
-		foreach( $part['options'] as $o => $option ) {
-			$part['options'][$o] = wp_parse_args( $option, $this->get_option_defaults() );
+		foreach ($part['options'] as $o => $option) {
+			$part['options'][$o] = wp_parse_args($option, $this->get_option_defaults());
 		}
 
 		$template_path = happyforms_get_core_folder() . '/templates/parts/frontend-radio.php';
-		$template_path = happyforms_get_part_frontend_template_path( $template_path, $this->type );
+		$template_path = happyforms_get_part_frontend_template_path($template_path, $this->type);
 
-		include( $template_path );
+		include($template_path);
 	}
 
 	/**
@@ -154,11 +153,13 @@ class HappyForms_Part_Radio extends HappyForms_Form_Part {
 	 *
 	 * @return void
 	 */
-	public function customize_enqueue_scripts( $deps = array() ) {
+	public function customize_enqueue_scripts($deps = array()) {
 		wp_enqueue_script(
 			'part-radio',
 			happyforms_get_plugin_url() . 'core/assets/js/parts/part-radio.js',
-			$deps, happyforms_get_version(), true
+			$deps,
+			happyforms_get_version(),
+			true
 		);
 	}
 
@@ -171,24 +172,24 @@ class HappyForms_Part_Radio extends HappyForms_Form_Part {
 	 *
 	 * @return string
 	 */
-	public function sanitize_value( $part_data = array(), $form_data = array(), $request = array() ) {
-		$sanitized_value = $this->get_default_value( $part_data );
-		$part_name = happyforms_get_part_name( $part_data, $form_data );
+	public function sanitize_value($part_data = array(), $form_data = array(), $request = array()) {
+		$sanitized_value = $this->get_default_value($part_data);
+		$part_name = happyforms_get_part_name($part_data, $form_data);
 
-		if ( isset( $request[$part_name] ) ) {
-			$value_array = json_decode( stripslashes( $request[$part_name] ) );
+		if (isset($request[$part_name])) {
+			$value_array = json_decode(stripslashes($request[$part_name]));
 
-			if ( ! is_array( $value_array ) ) {
-				if ( isset( $request[$part_name] ) ) {
-					$sanitized_value = sanitize_text_field( $request[$part_name] );
+			if (! is_array($value_array)) {
+				if (isset($request[$part_name])) {
+					$sanitized_value = sanitize_text_field($request[$part_name]);
 				}
 
 				return $sanitized_value;
 			}
 
 			$sanitized_value = array();
-			$sanitized_value[0] = intval( $value_array[0] );
-			$sanitized_value[1] = sanitize_text_field( $value_array[1] );
+			$sanitized_value[0] = intval($value_array[0]);
+			$sanitized_value[1] = sanitize_text_field($value_array[1]);
 		}
 
 		return $sanitized_value;
@@ -204,81 +205,81 @@ class HappyForms_Part_Radio extends HappyForms_Form_Part {
 	 *
 	 * @return string|object
 	 */
-	public function validate_value( $value, $part = array(), $form = array() ) {
+	public function validate_value($value, $part = array(), $form = array()) {
 		$validated_value = $value;
 
-		if ( ! is_array( $validated_value ) ) {
-			if ( 1 === $part['required'] && '' === $validated_value ) {
-				return new WP_Error( 'error', happyforms_get_validation_message( 'no_selection' ) );
+		if (! is_array($validated_value)) {
+			if (1 === $part['required'] && '' === $validated_value) {
+				return new WP_Error('error', happyforms_get_validation_message('no_selection'));
 			}
 
-			if ( '' !== $validated_value ) {
-				if ( ! is_numeric( $validated_value ) ) {
-					return new WP_Error( 'error', happyforms_get_validation_message( 'field_invalid' ) );
+			if ('' !== $validated_value) {
+				if (! is_numeric($validated_value)) {
+					return new WP_Error('error', happyforms_get_validation_message('field_invalid'));
 				}
 
-				if ( ! in_array( $validated_value, array_keys( $part['options'] ) ) ) {
-					return new WP_Error( 'error', happyforms_get_validation_message( 'field_invalid' ) );
+				if (! in_array($validated_value, array_keys($part['options']))) {
+					return new WP_Error('error', happyforms_get_validation_message('field_invalid'));
 				}
 			}
 
-			if ( is_wp_error( $validated_value ) ) {
+			if (is_wp_error($validated_value)) {
 				return $validated_value;
 			}
 
-			return $this->validate_option_limits( $validated_value, $part, $form );
+			return $this->validate_option_limits($validated_value, $part, $form);
 		}
 
-		if ( 1 === $part['required'] && empty( $validated_value[0] ) ) {
-			return new WP_Error( 'error', happyforms_get_validation_message( 'no_selection' ) );
+		if (1 === $part['required'] && empty($validated_value[0])) {
+			return new WP_Error('error', happyforms_get_validation_message('no_selection'));
 		}
 
-		if ( ! empty( $validated_value[0] ) ) {
-			if ( ! is_numeric( $validated_value[0] ) ) {
-				return new WP_Error( 'error', happyforms_get_validation_message( 'field_invalid' ) );
+		if (! empty($validated_value[0])) {
+			if (! is_numeric($validated_value[0])) {
+				return new WP_Error('error', happyforms_get_validation_message('field_invalid'));
 			}
 		}
 
-		if ( '' === $validated_value[1] ) {
-			return new WP_Error( 'error', happyforms_get_validation_message( 'field_invalid' ) );
+		if ('' === $validated_value[1]) {
+			return new WP_Error('error', happyforms_get_validation_message('field_invalid'));
 		}
 
 		return $validated_value;
 	}
 
-	private function validate_option_limits( $value, $part, $form ) {
-		foreach( $part['options'] as $o => $option ) {
-			$option = wp_parse_args( $option, happyforms_upgrade_get_option_limiter()->get_option_fields() );
+	private function validate_option_limits($value, $part, $form) {
+		foreach ($part['options'] as $o => $option) {
+			$option = wp_parse_args($option, happyforms_upgrade_get_option_limiter()->get_option_fields());
 
-			if ( '' == $option['limit_submissions_amount'] || $o !== intval( $value ) ) {
+			if ('' == $option['limit_submissions_amount'] || $o !== intval($value)) {
 				continue;
 			}
 
-			$limit = intval( $option['limit_submissions_amount'] );
-			$count = happyforms_upgrade_get_option_limiter()->count_by_option( $form['ID'], $part['id'], $option['id'] );
+			$limit = intval($option['limit_submissions_amount']);
+			$count = happyforms_upgrade_get_option_limiter()->count_by_option($form['ID'], $part['id'], $option['id']);
 
-			if ( $count >= $limit ) {
-				return new WP_Error( 'error', happyforms_get_validation_message( 'field_invalid' ) );
+			if ($count >= $limit) {
+				return new WP_Error('error', happyforms_get_validation_message('field_invalid'));
 			}
 		}
 
 		return $value;
 	}
 
-	public function append_input( $part, $form ) {
-		if ( $this->type !== $part['type'] ) {
+	public function append_input($part, $form) {
+		if ($this->type !== $part['type']) {
 			return;
 		}
 
-		if ( 1 == $part['other_option'] ) {
-			require( happyforms_get_core_folder() . '/templates/parts/frontend-radio-other-option.php' );
+		if (1 == $part['other_option']) {
+			require(happyforms_get_core_folder() . '/templates/parts/frontend-radio-other-option.php');
 		}
 	}
 
-	public function get_part_value( $value, $part, $form ) {
-		if ( $this->type === $part['type'] ) {
-			foreach ( $part['options'] as $o => $option ) {
-				if ( ! happyforms_is_falsy( $option['is_default'] ) ) {
+	public function get_part_value($value, $part, $form) {
+		if ($this->type === $part['type']) {
+			foreach ($part['options'] as $o => $option) {
+				if (! happyforms_is_falsy($option['is_default'])) {
 					$value = $o;
 				}
 			}
@@ -287,30 +288,28 @@ class HappyForms_Part_Radio extends HappyForms_Form_Part {
 		return $value;
 	}
 
-	public function stringify_value( $value, $part, $form, $force = false ) {
-		if ( $this->type === $part['type'] || $force ) {
+	public function stringify_value($value, $part, $form, $force = false) {
+		if ($this->type === $part['type'] || $force) {
 			$original_value = $value;
 
-			if ( ! is_array( $value ) ) { // standard options
-				if ( '' !== $value ) {
-					$options = happyforms_get_part_options( $part['options'], $part, $form );
+			if (! is_array($value)) { // standard options
+				if ('' !== $value) {
+					$options = happyforms_get_part_options($part['options'], $part, $form);
 					$value = $options[$value]['label'];
 				}
-
 			} else { // other option
-				$value = ( ! empty( $value[1] ) ) ? $value[1] : '';
-
+				$value = (! empty($value[1])) ? $value[1] : '';
 			}
 		}
 
 		return $value;
 	}
 
-	public function html_part_class( $class, $part, $form ) {
-		if ( $this->type === $part['type'] ) {
+	public function html_part_class($class, $part, $form) {
+		if ($this->type === $part['type']) {
 			$class[] = 'happyforms-part--choice';
 
-			if ( isset( $part['display_type'] ) && 'block' === $part['display_type'] ) {
+			if (isset($part['display_type']) && 'block' === $part['display_type']) {
 				$class[] = 'display-type--block';
 			}
 		}
@@ -318,30 +317,31 @@ class HappyForms_Part_Radio extends HappyForms_Form_Part {
 		return $class;
 	}
 
-	public function script_dependencies( $deps, $forms ) {
+	public function script_dependencies($deps, $forms) {
 		$contains_radio = false;
 		$form_controller = happyforms_get_form_controller();
 
-		foreach ( $forms as $form ) {
-			if ( $form_controller->get_first_part_by_type( $form, $this->type ) ) {
+		foreach ($forms as $form) {
+			if ($form_controller->get_first_part_by_type($form, $this->type)) {
 				$contains_radio = true;
 				break;
 			}
 		}
 
-		if ( ! happyforms_is_preview() && ! $contains_radio ) {
+		if (! happyforms_is_preview() && ! $contains_radio) {
 			return $deps;
 		}
 
 		wp_register_script(
 			'happyforms-radio-ext',
 			happyforms_get_plugin_url() . 'core/assets/js/frontend/radio.js',
-			array(), happyforms_get_version(), true
+			array(),
+			happyforms_get_version(),
+			true
 		);
 
 		$deps[] = 'happyforms-radio-ext';
 
 		return $deps;
 	}
-
 }
