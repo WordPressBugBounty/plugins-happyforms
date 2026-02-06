@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Happyforms (free) plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Happyforms (free) 1.26.9\n"
+"Project-Id-Version: Happyforms (free) 1.26.12\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/happyforms/\n"
 "Last-Translator: The Theme Foundry\n"
 "Language-Team: The Theme Foundry\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-04-28T15:55:36+00:00\n"
+"POT-Creation-Date: 2025-11-18T19:01:03+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: happyforms\n"
@@ -933,11 +933,11 @@ msgstr ""
 msgid "This answer isn't long enough."
 msgstr ""
 
-#: core/classes/class-wp-customize-form-manager.php:162
+#: core/classes/class-wp-customize-form-manager.php:161
 msgid "To publish your new form, add a <i>Forms</i> block anywhere your theme allows blocks to be added. If you're using an older theme or page builder, you might instead need to copy the form's shortcode and paste it into your site as your theme's author recommends."
 msgstr ""
 
-#: core/classes/class-wp-customize-form-manager.php:322
+#: core/classes/class-wp-customize-form-manager.php:324
 msgid "The changes you made will be lost if you navigate away from this page."
 msgstr ""
 
