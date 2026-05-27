@@ -646,7 +646,7 @@ class HappyForms_Form_Controller {
 				return $value[0];
 			}, $form_meta );
 
-			$form_meta = array_map( 'maybe_unserialize', $form_meta );
+			$form_meta = array_map( 'happyforms_maybe_unserialize', $form_meta );
 
 			foreach ( $form_meta as $key => $value ) {
 				add_post_meta( $duplicate_id, $key, $value );

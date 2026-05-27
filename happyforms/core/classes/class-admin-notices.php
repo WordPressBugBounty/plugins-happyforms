@@ -63,7 +63,7 @@ class HappyForms_Admin_Notices {
 	 *
 	 * @return void
 	 */
-	public function register( $id, $message, $args = array(), WP_User $user = null ) {
+	public function register( $id, $message, $args = array(), ?WP_User $user = null ) {
 		$defaults = array(
 			'cap' => 'switch_themes',
 			'dismissible' => false,
@@ -138,7 +138,7 @@ class HappyForms_Admin_Notices {
 	 *
 	 * @return array
 	 */
-	private function get_user_notices( WP_User $user = null ) {
+	private function get_user_notices( ?WP_User $user = null ) {
 		$transient_id = $this->get_user_transient_id();
 		$notices = get_transient( $transient_id );
 		$notices = false !== $notices ? $notices : array();
@@ -246,7 +246,7 @@ class HappyForms_Admin_Notices {
 	 *
 	 * @return string
 	 */
-	public function get_user_transient_id( WP_User $user = null ) {
+	public function get_user_transient_id( ?WP_User $user = null ) {
 		if ( is_null( $user ) ) {
 			$user = wp_get_current_user();
 		}

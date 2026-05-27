@@ -72,6 +72,65 @@ function happyforms_get_csv_value( $value, $message, $part, $form ) {
 
 endif;
 
+if ( ! function_exists( 'happyforms_value_contains_object' ) ):
+/**
+ * Determine whether a value is, or contains, a PHP object.
+ *
+ * @since 1.26.14
+ *
+ * @param mixed $value The value to inspect.
+ *
+ * @return bool
+ */
+function happyforms_value_contains_object( $value ) {
+	if ( is_object( $value ) ) {
+		return true;
+	}
+
+	if ( is_array( $value ) ) {
+		foreach ( $value as $item ) {
+			if ( happyforms_value_contains_object( $item ) ) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+endif;
+
+if ( ! function_exists( 'happyforms_maybe_unserialize' ) ):
+/**
+ * Safely unserialize a stored value.
+ *
+ * Mirrors WordPress' maybe_unserialize() but never instantiates objects.
+ * Legitimate HappyForms part values are only scalars or arrays of scalars,
+ * so any serialized payload that resolves to an object is treated as a
+ * PHP Object Injection attempt and the raw string is returned untouched.
+ *
+ * @since 1.26.14
+ *
+ * @param mixed $value The value to maybe unserialize.
+ *
+ * @return mixed
+ */
+function happyforms_maybe_unserialize( $value ) {
+	if ( ! is_string( $value ) || ! is_serialized( $value ) ) {
+		return $value;
+	}
+
+	$unserialized = @unserialize( trim( $value ), array( 'allowed_classes' => false ) );
+
+	if ( false === $unserialized || happyforms_value_contains_object( $unserialized ) ) {
+		return $value;
+	}
+
+	return $unserialized;
+}
+
+endif;
+
 if ( ! function_exists( 'happyforms_get_message_part_value' ) ):
 /**
  * Get the part submission value in a readable format.
@@ -88,7 +147,7 @@ function happyforms_get_message_part_value( $value, $part = array(), $destinatio
 	$original_value = $value;
 
 	if ( is_string( $value ) ) {
-		$value = maybe_unserialize( $value );
+		$value = happyforms_maybe_unserialize( $value );
 	}
 
 	if ( is_array( $value ) ) {
@@ -649,7 +708,7 @@ function happyforms_unprefix_meta( $meta ) {
 	$meta = array_map( function( $entry ) {
 		return reset( $entry );
 	}, $meta );
-	$meta = array_map( 'maybe_unserialize', $meta );
+	$meta = array_map( 'happyforms_maybe_unserialize', $meta );
 	$prefixed_meta = array();
 	$unprefixed_meta = array();
 

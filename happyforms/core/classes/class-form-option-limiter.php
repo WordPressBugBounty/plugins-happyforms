@@ -257,7 +257,7 @@ class HappyForms_Form_Option_Limiter {
 		", $form_id ), ARRAY_A );
 		
 		$messages = array_map( function( $message ) {
-			return maybe_unserialize( $message['meta_value'] );
+			return happyforms_maybe_unserialize( $message['meta_value'] );
 		}, $messages );
 
 		foreach( $messages as $message ) {
