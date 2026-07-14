@@ -30,13 +30,13 @@
 if ( happyforms_get_form_property( $form, 'include_submitters_ip' ) ) : ?>
 
 	<b><?php _e( 'IPv4/IPv6', 'happyforms' ); ?></b><br>
-	<?php echo $ip_address; ?>
+	<?php echo esc_html( $ip_address ); ?>
 	<br><br>
 
 <?php endif; ?>
 
 <?php if ( happyforms_get_form_property( $form, 'include_referral_link' ) ): ?>
-	<b><?php _e( 'Referral', 'happyforms' ); ?></b><br><a href="<?php echo $client_referer; ?>"><?php echo $client_referer; ?></a>
+	<b><?php _e( 'Referral', 'happyforms' ); ?></b><br><a href="<?php echo esc_url( $client_referer ); ?>"><?php echo esc_html( $client_referer ); ?></a>
 	<br><br>
 <?php endif; ?>
 

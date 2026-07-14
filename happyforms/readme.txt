@@ -5,7 +5,7 @@ Tags: contact form, WordPress form plugin, forms, form builder, custom form
 Requires at least: 5.0
 Tested up to: 7.0
 Requires PHP: 7.0
-Stable tag: 1.26.14
+Stable tag: 1.26.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -288,6 +288,12 @@ If you ever have questions, [just ask us](https://wordpress.org/support/plugin/h
 And so you know, we don't outsource support. You can expect plain-talkin' help from someone who has a hand in making Happyforms.
 
 == Changelog ==
+
+= July 14, 2026 =
+
+Version 1.26.15 changelog:
+
+* Fixed: Unauthenticated HTML injection in email notifications via the referral link and IP address fields. Reported by minaruzzaman shovon and dyingman.
 
 = May 27, 2026 =
 
@@ -662,6 +668,10 @@ Version 1.13.12 changelog:
 * Removed: "Add other choice" control has been deprecated in favor of conditional logic.
 
 == Upgrade Notice ==
+
+= 1.26.15 =
+
+* Fixed: Unauthenticated HTML injection in email notifications via the referral link and IP address fields.
 
 = 1.26.14 =
 
